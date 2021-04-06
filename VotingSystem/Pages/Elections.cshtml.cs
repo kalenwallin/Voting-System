@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace VotingSystem.Pages
 {
-    public class PrivacyModel : PageModel
+    public class ElectionsModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<ElectionsModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public ElectionsModel(ILogger<ElectionsModel> logger)
         {
             _logger = logger;
         }
 
         public void OnGet()
         {
+
         }
     }
 }
