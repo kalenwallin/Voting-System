@@ -1,0 +1,1 @@
+Place your class diagrams in this folder.
