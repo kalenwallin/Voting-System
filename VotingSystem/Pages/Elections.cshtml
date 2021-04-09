@@ -2,6 +2,10 @@
 @model ElectionsModel
 @{
     ViewData["Title"] = "Elections";
+    string electionOneName = "2021 Pacopolis Election";
+    string electionOneEndDate = "5/1/21";
+    string electionTwoName = "Some Future Election";
+    string electionTwoEndDate = "5/8/22";
 }
 
 <div class="general-container">
@@ -9,6 +13,30 @@
         <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
         <h1 class="display-4">Elections</h1>
         <br />
-        <p>Create some elections!</p>
+        <a href="/Vote">
+            <div class="w3-election-card-container">
+                <div class="w3-election-card w3-white">
+                    <header class="w3-container">
+                        <h3>@electionOneName</h3>
+                    </header>
+                    <div class="w3-container">
+                        <hr>
+                        <p>@electionOneEndDate</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <br />
+        <div class="w3-election-card-container">
+            <div class="w3-election-card w3-white">
+                <header class="w3-container">
+                    <h3>@electionTwoName</h3>
+                </header>
+                <div class="w3-container">
+                    <hr>
+                    <p>@electionTwoEndDate</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

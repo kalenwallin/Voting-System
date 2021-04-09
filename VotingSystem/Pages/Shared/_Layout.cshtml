@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - VotingSystem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/w3.css" />
 </head>
 <body>
     <header>
@@ -25,9 +26,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Elections">Elections</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Login">Sign Out</a>
                         </li>
                     </ul>
@@ -40,10 +38,12 @@
             @RenderBody()
         </main>
     </div>
-
+    <br />
+    <br />
+    <br />
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - VotingSystem - <a asp-area="" asp-page="/About">About</a>
+            &copy; 2021 - VotingSystem
         </div>
     </footer>
 
