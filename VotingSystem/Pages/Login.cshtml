@@ -4,6 +4,12 @@
     ViewData["Title"] = "Login";
 }
 
+<!--
+    Author: Kalen Wallin
+    Date: 4/9/21
+    Description: Login page for the Voting System. Also the default landing page.
+    -->
+
 <div class="text-center">
     <div class="general-container">
         <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
@@ -11,11 +17,13 @@
         <form action="/Elections">
             <br />
             <div class="text-center">
-                <input type="text" name="email_address" placeholder="Email Address" required>
+                <label for="email"></label>
+                <input type="email" id="email" name="email_address" placeholder="Email Address" required>
             </div>
             <br />
             <div class="text-center">
-                <input type="password" name="password" placeholder="Password" required>
+                <label for="password"></label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
             <br />
             <div class="text-center">

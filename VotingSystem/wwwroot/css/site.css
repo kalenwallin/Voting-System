@@ -87,6 +87,7 @@ body {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px 0 30px 0;
+    overflow: auto;
 }
 
 input,
@@ -124,4 +125,19 @@ input[type=submit]:hover {
     content: "";
     display: table;
     clear: both;
+}
+
+/*
+    Vote Submitted Page Styles
+------------------------------------------------------- */
+/* style inputs and link buttons */
+
+.signout {
+    background-color: #af4c4c;
+    color: white;
+    cursor: pointer;
+}
+
+.signout:hover {
+    background-color: #a04545;
 }
