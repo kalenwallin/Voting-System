@@ -6,6 +6,17 @@
     string mayoralCandidateTwoName = "Dawn Keykong";
     string sheriffCandidateOneName = "John Doe";
     string sheriffCandidateTwoName = "Mary Jane";
+    string issueName = "City Park";
+    string issueDesc = @"The Pacopolis Department of Recreation passed a bill, on January 21, 2021,
+                        to build a park on the corner of 1st street. The park will enter development
+                        if they receive a majoral vote in this election.
+                        If you are in favor of the city park, select yes. If not, select no.";
+
+    //dummy variables for user
+    bool userVoted = false;
+    string mayoralVote = mayoralCandidateOneName;
+    string sheriffVote = sheriffCandidateOneName;
+    string issueVote = "yes";
 }
 
 <!--
@@ -14,75 +25,148 @@
     Description: Voting ballot for the 2021 Pacopolis Election.
     -->
 
-<div class="general-container">
-    <div class="text-center">
-        <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
-        <h1 class="display-4">2021 Pacopolis <br /> Election Ballot</h1>
-        <br />
-        <header class="w3-container">
-            <h2><b>Mayoral Race</b></h2>
-        </header>
-        <form action="/VoteSubmitted" id="ballot" method="get">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input type="radio" id="mayoralCandidateOne" name="mayoral" value="@mayoralCandidateOneName" required>
-                        <label for="mayoralCandidateOne"></label>
-                        <h3>@mayoralCandidateOneName</h3>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input type="radio" id="mayoralCandidateTwo" name="mayoral" value="@mayoralCandidateTwoName" required>
-                        <label for="mayoralCandidateTwo"></label>
-                        <h3>@mayoralCandidateTwoName</h3>
-                    </div>
-                </div>
-            </div>
-            <header class="w3-container">
-                <h2><b>Sheriff Election</b></h2>
-            </header>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input type="radio" id="sheriffCandidateOne" name="sheriff" value="@sheriffCandidateOneName" required>
-                        <label for="sheriffCandidateOne"></label>
-                        <h3>@sheriffCandidateOneName</h3>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input type="radio" id="sheriffCandidateTwo" name="sheriff" value="@sheriffCandidateTwoName" required>
-                        <label for="sheriffCandidateTwo"></label>
-                        <h3>@sheriffCandidateTwoName</h3>
-                    </div>
-                </div>
-            </div>
-            <header class="w3-container">
-                <h2><b>City Park</b></h2>
-            </header>
-            <div class="container">
-                <p>
-                    The Pacopolis Department of Recreation passed a bill, on January 21, 2021,
-                    to build a park on the corner of 1st street. The park will enter development
-                    if they receive a majoral vote in this election.
-                    If you are in favor of the city park, select yes. If not, select no.
-                </p>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input type="radio" id="yes" name="city-park" value="yes" required>
-                        <label for="yes"></label>
-                        <h3>Yes</h3>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input type="radio" id="no" name="city-park" value="no" required>
-                        <label for="no"></label>
-                        <h3>No</h3>
-                    </div>
-                </div>
-            </div>
-            <br />
+@{
+    //If user has already voted display their ballot choices
+    if (userVoted)
+    {
+        <div class="general-container">
             <div class="text-center">
-                <input type="submit" value="Submit">
+                <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
+                <h1 class="display-4">2021 Pacopolis <br /> Election Ballot</h1>
+                <br />
+                <header class="w3-container">
+                    <h2><b>Mayoral Race</b></h2>
+                </header>
+                <form action="/VoteSubmitted" id="ballot" method="get">
+                    <div class="container">
+                        <div class="text-center">
+                            <h3>You selected <b>@mayoralVote</b></h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <h3>@mayoralCandidateOneName</h3>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <h3>@mayoralCandidateTwoName</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <header class="w3-container">
+                        <h2><b>Sheriff Election</b></h2>
+                    </header>
+                    <div class="container">
+                        <div class="text-center">
+                            <h3>You selected <b>@sheriffVote</b></h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <h3>@sheriffCandidateOneName</h3>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <h3>@sheriffCandidateTwoName</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <header class="w3-container">
+                        <h2><b>@issueName</b></h2>
+                    </header>
+                    <div class="container">
+                        <p>
+                            @issueDesc
+                        </p>
+                    </div>
+                    <div class="container">
+                        <div class="text-center">
+                            <h3>You selected <b>@issueVote</b></h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <h3>Yes</h3>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <h3>No</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="text-center">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
+    }
+    //If user hasn't voted yet display an unfilled ballot
+    else
+    {
+        <div class="general-container">
+            <div class="text-center">
+                <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
+                <h1 class="display-4">2021 Pacopolis <br /> Election Ballot</h1>
+                <br />
+                <header class="w3-container">
+                    <h2><b>Mayoral Race</b></h2>
+                </header>
+                <form action="/VoteSubmitted" id="ballot" method="get">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input type="radio" id="mayoralCandidateOne" name="mayoral" value="@mayoralCandidateOneName" required>
+                                <label for="mayoralCandidateOne"></label>
+                                <h3>@mayoralCandidateOneName</h3>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input type="radio" id="mayoralCandidateTwo" name="mayoral" value="@mayoralCandidateTwoName" required>
+                                <label for="mayoralCandidateTwo"></label>
+                                <h3>@mayoralCandidateTwoName</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <header class="w3-container">
+                        <h2><b>Sheriff Election</b></h2>
+                    </header>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input type="radio" id="sheriffCandidateOne" name="sheriff" value="@sheriffCandidateOneName" required>
+                                <label for="sheriffCandidateOne"></label>
+                                <h3>@sheriffCandidateOneName</h3>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input type="radio" id="sheriffCandidateTwo" name="sheriff" value="@sheriffCandidateTwoName" required>
+                                <label for="sheriffCandidateTwo"></label>
+                                <h3>@sheriffCandidateTwoName</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <header class="w3-container">
+                        <h2><b>@issueName</b></h2>
+                    </header>
+                    <div class="container">
+                        <p>
+                            @issueDesc
+                        </p>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input type="radio" id="yes" name="city-park" value="yes" required>
+                                <label for="yes"></label>
+                                <h3>Yes</h3>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <input type="radio" id="no" name="city-park" value="no" required>
+                                <label for="no"></label>
+                                <h3>No</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="text-center">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+}
