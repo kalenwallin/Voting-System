@@ -1,7 +1,8 @@
 ﻿@page
 @model VotingSystem.Pages.VoteModel
 @{
-    ViewData["Title"] = "2021 Pacopolis Election";
+    string electionName = "2021 Pacopolis Election";
+    ViewData["Title"] = electionName;
     string mayoralCandidateOneName = "Pat Mann";
     string mayoralCandidateTwoName = "Dawn Keykong";
     string sheriffCandidateOneName = "John Doe";
@@ -13,12 +14,12 @@ if they receive a majoral vote in this election.
 If you are in favor of the city park, select yes. If not, select no.";
 
     //dummy variables for user while db isn't implemented
-    bool userVoted = true;
+    bool userVoted = false;
     string mayoralVote = mayoralCandidateOneName;
     string sheriffVote = sheriffCandidateOneName;
     string issueVote = "Yes";
 
-    //dummy variables for results while db isn't implemented
+    //dummy variables for election results while db isn't implemented
     int mayoralCandidateOneVotes = 10;
     int mayoralCandidateTwoVotes = 15;
     int sheriffCandidateOneVotes = 10;
@@ -149,6 +150,141 @@ If you are in favor of the city park, select yes. If not, select no.";
                         <div class="text-center">
                             <h3>You selected <b>@issueVote</b></h3>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                @if (electionEnded && @issueYesVotes > @issueNoVotes)
+                                {
+                                    <h3><b>@issueYesVotes</b></h3>
+                                    <h3><b>Yes</b></h3>
+                                }
+                                else if (electionEnded && @issueYesVotes < @issueNoVotes)
+                                {
+                                    <h3>@issueYesVotes</h3>
+                                    <h3>Yes</h3>
+                                }
+                                else
+                                {
+                                    <h3>Yes</h3>
+                                }
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                @if (electionEnded && @issueYesVotes < @issueNoVotes)
+                                {
+                                    <h3><b>@issueNoVotes</b></h3>
+                                    <h3><b>No</b></h3>
+                                }
+                                else if (electionEnded && @issueYesVotes > @issueNoVotes)
+                                {
+                                    <h3>@issueNoVotes</h3>
+                                    <h3>No</h3>
+                                }
+                                else
+                                {
+                                    <h3>No</h3>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    //if user hasn't voted, but the election has ended display the results
+    else if (electionEnded)
+    {
+        <div class="general-container">
+            <div class="text-center">
+                <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
+                <h1 class="display-4">2021 Pacopolis <br /> Election Ballot</h1>
+                <br />
+                <header class="w3-container">
+                    <h2><b>Mayoral Race</b></h2>
+                </header>
+                <form action="/VoteSubmitted" id="ballot" method="get">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                @if (electionEnded && @mayoralCandidateOneVotes > @mayoralCandidateTwoVotes)
+                                {
+                                    <h3><b>@mayoralCandidateOneVotes</b></h3>
+                                    <h3><b>@mayoralCandidateOneName Won!</b></h3>
+                                }
+                                else if (electionEnded && @mayoralCandidateOneVotes < @mayoralCandidateTwoVotes)
+                                {
+                                    <h3>@mayoralCandidateOneVotes</h3>
+                                    <h3>@mayoralCandidateOneName</h3>
+                                }
+                                else
+                                {
+                                    <h3>@mayoralCandidateOneName</h3>
+                                }
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                @if (electionEnded && @mayoralCandidateOneVotes < @mayoralCandidateTwoVotes)
+                                {
+                                    <h3><b>@mayoralCandidateTwoVotes</b></h3>
+                                    <h3><b>@mayoralCandidateTwoName Won!</b></h3>
+                                }
+                                else if (electionEnded && @mayoralCandidateOneVotes > @mayoralCandidateTwoVotes)
+                                {
+                                    <h3>@mayoralCandidateTwoVotes</h3>
+                                    <h3>@mayoralCandidateTwoName</h3>
+                                }
+                                else
+                                {
+                                    <h3>@mayoralCandidateTwoName</h3>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <header class="w3-container">
+                        <h2><b>Sheriff Election</b></h2>
+                    </header>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                @if (electionEnded && @sheriffCandidateOneVotes > @sheriffCandidateTwoVotes)
+                                {
+                                    <h3><b>@sheriffCandidateOneVotes</b></h3>
+                                    <h3><b>@sheriffCandidateOneName Won!</b></h3>
+                                }
+                                else if (electionEnded && @sheriffCandidateOneVotes < @sheriffCandidateTwoVotes)
+                                {
+                                    <h3>@sheriffCandidateOneVotes</h3>
+                                    <h3>@sheriffCandidateOneName</h3>
+                                }
+                                else
+                                {
+                                    <h3>@sheriffCandidateOneName</h3>
+                                }
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                @if (electionEnded && @sheriffCandidateOneVotes < @sheriffCandidateTwoVotes)
+                                {
+                                    <h3><b>@sheriffCandidateTwoVotes</b></h3>
+                                    <h3><b>@sheriffCandidateTwoName Won!</b></h3>
+                                }
+                                else if (electionEnded && @sheriffCandidateOneVotes > @sheriffCandidateTwoVotes)
+                                {
+                                    <h3>@sheriffCandidateTwoVotes</h3>
+                                    <h3>@sheriffCandidateTwoName</h3>
+                                }
+                                else
+                                {
+                                    <h3>@sheriffCandidateTwoName</h3>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <header class="w3-container">
+                        <h2><b>@issueName</b></h2>
+                    </header>
+                    <div class="container">
+                        <p>
+                            @issueDesc
+                        </p>
+                    </div>
+                    <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 @if (electionEnded && @issueYesVotes > @issueNoVotes)
