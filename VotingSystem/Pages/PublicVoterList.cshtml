@@ -1,0 +1,34 @@
+﻿@page
+@model VotingSystem.Pages.PublicVoterListModel
+@{
+    ViewData["Title"] = "Public Voter List";
+
+
+    var userFirstName = "Armin";
+    var userLastName = "Arlert";
+    var userVoted = true;
+    var users = new List<string>();
+    users.Add("Kalen Wallin", true);
+    users.Add("Eren Yeager", true);
+    users.Add("Mikasa Ackerman", false);
+    users.Add("Mikasa Ackerman", false);
+    users.Add(userFirstName + userLastName, userVoted);
+}
+
+<!--
+    Author: Kalen Wallin
+    Date: 4/9/21
+    Description: Page to view if a user has voted or not.
+    -->
+
+<div class="general-container">
+    <div class="text-center">
+        <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
+        <h1 class="display-4">Public Voter List</h1>
+        <br />
+        @foreach (var user in users)
+        {
+        
+        }
+    </div>
+</div>
