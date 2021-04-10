@@ -12,5 +12,12 @@ namespace VotingSystem.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Autherize()
+        {
+            return View();
+        }
+
     }
 }
