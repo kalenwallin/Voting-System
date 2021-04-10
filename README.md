@@ -8,7 +8,7 @@ Participants: Kalen Wallin, Jayden Carlon, Cameron Collingham, Thomas Walton, Jo
 The Voting System is a web appplication created by a group of software engineering students at the University of Nebraska-Lincoln.
 
 ## Features
-The main feature of the Voting System is the ability to vote.
+The main feature of the Voting System is the ability to vote. After voting, a user can view their view your ballot. After an election, a user can view the results.
 
 ## Getting started
 1. Create an account at [insert website here](https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO)
