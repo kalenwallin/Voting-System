@@ -3,16 +3,14 @@
 @{
     ViewData["Title"] = "Public Voter List";
 
+    //dummy variables while db isn't set up
+    var userOneFirstName = "Armin";
+    var userOneLastName = "Arlert";
+    var userOneVoted = true;
 
-    var userFirstName = "Armin";
-    var userLastName = "Arlert";
-    var userVoted = true;
-    var users = new List<string>();
-    users.Add("Kalen Wallin", true);
-    users.Add("Eren Yeager", true);
-    users.Add("Mikasa Ackerman", false);
-    users.Add("Mikasa Ackerman", false);
-    users.Add(userFirstName + userLastName, userVoted);
+    var userTwoFirstName = "Eren";
+    var userTwoLastName = "Yeager";
+    var userTwoVoted = false;
 }
 
 <!--
@@ -26,9 +24,46 @@
         <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
         <h1 class="display-4">Public Voter List</h1>
         <br />
-        @foreach (var user in users)
+        @if (userOneVoted)
         {
-        
+            <div class="w3-election-card-container">
+                <div class="w3-election-card" style="background-color: #4CAF50; color: white;">
+                    <div class="w3-container">
+                        <h3 class="text-center">@userOneFirstName @userOneLastName has voted</h3>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="w3-election-card-container">
+                <div class="w3-election-card" style="background-color: #af4c4c; color: white;">
+                    <div class="w3-container">
+                        <h3 class="text-center">@userOneFirstName @userOneLastName has not voted</h3>
+                    </div>
+                </div>
+            </div>
+        }
+        <br />
+        @if (userTwoVoted)
+        {
+            <div class="w3-election-card-container">
+                <div class="w3-election-card" style="background-color: #4CAF50; color: white;">
+                    <div class="w3-container">
+                        <h3 class="text-center">@userTwoFirstName @userTwoLastName has voted</h3>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="w3-election-card-container">
+                <div class="w3-election-card" style="background-color: #af4c4c; color: white;">
+                    <div class="w3-container">
+                        <h3 class="text-center">@userTwoFirstName @userTwoLastName has not voted</h3>
+                    </div>
+                </div>
+            </div>
         }
     </div>
 </div>
