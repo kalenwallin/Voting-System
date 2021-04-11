@@ -14,16 +14,18 @@
     <div class="general-container">
         <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
         <h1 class="display-4">Log In</h1>
-        <form action="/Elections">
+        <form method="post">
             <br />
             <div class="text-center">
-                <label for="email"></label>
-                <input type="email" id="email" name="email_address" placeholder="Email Address" required>
+                <input type="email" id="email" placeholder="Email Address" asp-for="Email" required>
+                <br />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <br />
             <div class="text-center">
-                <label for="password"></label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="password" placeholder="Password" asp-for="Password" required>
+                <br />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <br />
             <div class="text-center">
@@ -36,3 +38,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
