@@ -9,22 +9,42 @@ namespace VotingSystem.Classes
      * class for containing user stuffs
      *
      * Cameron Collingham
+     * 
+     * Additional info from Kalen Wallin:
+     * I've made the important info private
+     * for Encapsulation's sake. 
      */
 {
-    public abstract class User
+    public class User
     {
-        public abstract int UserId { get; set; }
-        public abstract string Email  { get; set; }
-        public abstract string Password { get; set; }
+        private int UserId { get; set; }
+        public int userId {
+            get { return UserId; }
+            set { UserId = userId; }
+        }
+        private string Email  { get; set; }
+        public string email
+        {
+            get { return Email; }
+            set { Email = email; }
+        }
+        private string Password { get; set; }
+        public string password
+        {
+            get { return Password; }
+            set { Password = password; }
+        }
+        public string Name { get; set; }
 
         //should be used to ensure accounts do not vote again (don't want no voter fraud you feel me?)
-        public abstract bool HasVoted { get; set; }
+        public bool HasVoted { get; set; }
 
-        public User(int userId, string email, string password, bool hasVoted)
+        public User(int userId, string email, string password, string name,  bool hasVoted)
         {
             UserId = userId;
             Email = email;
             Password = password;
+            Name = name;
             HasVoted = hasVoted;
         }
     }
