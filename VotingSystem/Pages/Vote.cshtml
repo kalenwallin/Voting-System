@@ -335,17 +335,15 @@ If you are in favor of the city park, select yes. If not, select no.";
                 <header class="w3-container">
                     <h2><b>Mayoral Race</b></h2>
                 </header>
-                <form action="/VoteSubmitted" id="ballot" method="get">
+                <form method="post">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" id="mayoralCandidateOne" name="mayoral" value="@mayoralCandidateOneName" required>
-                                <label for="mayoralCandidateOne"></label>
+                                <input asp-for="mayoralVote" type="radio" id="mayoralCandidateOne" value="@mayoralCandidateOneName" required>
                                 <h3>@mayoralCandidateOneName</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" id="mayoralCandidateTwo" name="mayoral" value="@mayoralCandidateTwoName" required>
-                                <label for="mayoralCandidateTwo"></label>
+                                <input asp-for="mayoralVote" type="radio" id="mayoralCandidateTwo" value="@mayoralCandidateTwoName" required>
                                 <h3>@mayoralCandidateTwoName</h3>
                             </div>
                         </div>
@@ -356,13 +354,11 @@ If you are in favor of the city park, select yes. If not, select no.";
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" id="sheriffCandidateOne" name="sheriff" value="@sheriffCandidateOneName" required>
-                                <label for="sheriffCandidateOne"></label>
+                                <input type="radio" asp-for="sheriffVote" id="sheriffCandidateOne" value="@sheriffCandidateOneName" required>
                                 <h3>@sheriffCandidateOneName</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" id="sheriffCandidateTwo" name="sheriff" value="@sheriffCandidateTwoName" required>
-                                <label for="sheriffCandidateTwo"></label>
+                                <input type="radio" asp-for="sheriffVote" id="sheriffCandidateTwo" value="@sheriffCandidateTwoName" required>
                                 <h3>@sheriffCandidateTwoName</h3>
                             </div>
                         </div>
@@ -378,13 +374,11 @@ If you are in favor of the city park, select yes. If not, select no.";
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" id="yes" name="city-park" value="yes" required>
-                                <label for="yes"></label>
+                                <input type="radio" asp-for="issueVote" id="yes" value="yes" required>
                                 <h3>Yes</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" id="no" name="city-park" value="no" required>
-                                <label for="no"></label>
+                                <input type="radio" asp-for="issueVote" id="no" value="no" required>
                                 <h3>No</h3>
                             </div>
                         </div>
