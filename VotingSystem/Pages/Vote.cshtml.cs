@@ -14,7 +14,6 @@ namespace VotingSystem.Pages
         [BindProperty] public string issueVote { get; set; }
         public IActionResult OnPostAsync()
         {
-            
             //record user's votes to database
             return RedirectToPage("VoteSubmitted");
         }
