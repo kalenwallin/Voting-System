@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using VotingSystem.Data;
 
 namespace VotingSystem
 {
@@ -32,6 +35,11 @@ namespace VotingSystem
             {
                 options.Conventions.AddPageRoute("/Login", "");
             });
+
+            //Adds the db context from Data
+            services.AddDbContext<VotingSystemContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("VotingSystemContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
