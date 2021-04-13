@@ -1,5 +1,5 @@
 # CSCE 361 Capstone Project - Voting System
-<img align="right" src="https://raw.githubusercontent.com/kalenwallin/csce361/master/Branding/VotingSystemLogo.png?token=AHQF77BRI3WE5LETVMVQAK3AOTA26" width=45% height=45%>
+<img align="right" src="https://raw.githubusercontent.com/kalenwallin/csce361/master/Branding/VotingSystemLogo.png?token=AHQF77CEQGG6X2Q52U65SBTAP4EYQ" width=45% height=45%>
 Author: Kalen Wallin
 
 Participants: Kalen Wallin, Jayden Carlon, Cameron Collingham, Thomas Walton, Joshua Bellmyer
