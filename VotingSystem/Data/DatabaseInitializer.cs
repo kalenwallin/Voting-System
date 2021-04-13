@@ -19,28 +19,26 @@ namespace VotingSystem.Data
             }
 
             var users = new User[]
-            {
+           {
                 new User{Name="Tom Walton",Email="twalton4@huskers.unl.edu",Password="dummyvariable",UserID="tom2963"},
                 new User{Name ="Kalen Wallin",Email ="kalenwallin@gmail.com",Password ="dummyvariable",UserID ="kalenwallin2"},
                 new User{Name="Your Mom",Email="yourmom@yahoo.com",Password="yourmom",UserID="yourmom2" }
-            };
+           };
 
-            foreach(User u in users)
+            foreach (User u in users)
             {
                 context.Users.Add(u);
             }
-            context.SaveChanges();
 
             var elections = new Election[]
             {
                 new Election{ElectionID=0001,Open=true,Year=2021}
             };
 
-            foreach(Election e in elections)
+            foreach (Election e in elections)
             {
                 context.Elections.Add(e);
             }
-            context.SaveChanges();
 
             var issues = new Issue[]
             {

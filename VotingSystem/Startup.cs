@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using VotingSystem.Data;
 
 namespace VotingSystem
@@ -37,7 +38,7 @@ namespace VotingSystem
 
             //Adds the db context from Data
             services.AddDbContext<VotingSystemContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(Configuration.GetConnectionString("VotingSystemContext")));
 
         }
 

@@ -21,10 +21,14 @@ namespace VotingSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<User>().ToTable("User");
-            builder.Entity<Election>().ToTable("Election");
-            builder.Entity<Candidate>().ToTable("Candidate");
-            builder.Entity<Issue>().ToTable("Issue");
+            builder.Entity<User>().ToTable("User")
+                .HasKey(u => u.UserID);
+            builder.Entity<Election>().ToTable("Election")
+                .HasKey(e => e.ElectionID);
+            builder.Entity<Candidate>().ToTable("Candidate")
+                .HasKey(c => c.ElectionID);
+            builder.Entity<Issue>().ToTable("Issue")
+                .HasKey(i => i.ElectionID);
         }
     }
 }
