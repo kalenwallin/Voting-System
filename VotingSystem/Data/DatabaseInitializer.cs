@@ -29,6 +29,8 @@ namespace VotingSystem.Data
             {
                 context.Users.Add(u);
             }
+            context.SaveChanges();
+
 
             var elections = new Election[]
             {
@@ -39,6 +41,8 @@ namespace VotingSystem.Data
             {
                 context.Elections.Add(e);
             }
+            context.SaveChanges();
+
 
             var issues = new Issue[]
             {
