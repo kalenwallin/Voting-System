@@ -34,7 +34,7 @@ namespace VotingSystem.Data
 
             var elections = new Election[]
             {
-                new Election{ElectionID=0001,Open=true,Year=2021}
+                new Election{Open=true,Year=2021}
             };
 
             foreach (Election e in elections)
