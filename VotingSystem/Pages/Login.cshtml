@@ -2,6 +2,7 @@
 @model VotingSystem.Pages.Shared.LoginModel
 @{
     ViewData["Title"] = "Login";
+    bool loginFailed = Model.LoginFailed;
 }
 
 <!--
@@ -14,6 +15,10 @@
     <div class="general-container">
         <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
         <h1 class="display-4">Log In</h1>
+        @if (loginFailed)
+        {
+            <span class="text-danger">Email addres or password is incorrect. Please try again.</span>
+        }
         <form method="post">
             <br />
             <div class="text-center">
