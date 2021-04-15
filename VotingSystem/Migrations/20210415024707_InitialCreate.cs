@@ -2,7 +2,7 @@
 
 namespace VotingSystem.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,6 @@ namespace VotingSystem.Migrations
                 {
                     ElectionID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CandidateID = table.Column<int>(nullable: false),
                     Votes = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Race = table.Column<string>(nullable: true)
@@ -42,7 +41,6 @@ namespace VotingSystem.Migrations
                 {
                     ElectionID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IssueID = table.Column<int>(nullable: false),
                     VotesFor = table.Column<int>(nullable: false),
                     VotesAgainst = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),

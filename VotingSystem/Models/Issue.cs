@@ -7,7 +7,6 @@ namespace VotingSystem.Models
 {
     public class Issue
     {
-        public int IssueID { get; set; }
         public int ElectionID { get; set; }
         public int VotesFor { get; set; }
         public int VotesAgainst { get; set; }
