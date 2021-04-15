@@ -1,5 +1,6 @@
 ﻿@page
 @model VotingSystem.Pages.VoteModel
+@using VotingSystem.Classes;
 @{
     string electionName = "2021 Pacopolis Election";
     ViewData["Title"] = electionName;
@@ -44,7 +45,8 @@ If you are in favor of the city park, select yes. If not, select no.";
                  If a user has voted, then their choices will be displayed.
     -->
 
-@{
+@if (signedIn.isSignedIn)
+{
     //If user has already voted display their ballot choices
     if (userVoted)
     {
@@ -391,4 +393,20 @@ If you are in favor of the city park, select yes. If not, select no.";
             </div>
         </div>
     }
+}
+else
+{
+    <div class="general-container">
+        <div class="text-center">
+            <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
+            <h1 class="display-4">Oops!</h1>
+            <h2 class="text-danger">You must be signed in to visit this page.</h2>
+            <br />
+            <form action="/Login">
+                <div class="text-center">
+                    <input type="submit" value="Log In">
+                </div>
+            </form>
+        </div>
+    </div>
 }

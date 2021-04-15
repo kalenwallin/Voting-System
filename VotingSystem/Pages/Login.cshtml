@@ -1,8 +1,10 @@
 ﻿@page
 @model VotingSystem.Pages.Shared.LoginModel
+@using VotingSystem.Classes; 
 @{
     ViewData["Title"] = "Login";
     bool loginFailed = Model.LoginFailed;
+    signedIn.isSignedIn = Model.SignedIn;
 }
 
 <!--

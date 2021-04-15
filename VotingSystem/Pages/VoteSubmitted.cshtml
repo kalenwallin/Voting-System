@@ -1,5 +1,6 @@
 ﻿@page
 @model VotingSystem.Pages.VoteSubmittedModel
+@using VotingSystem.Classes;
 @{
     ViewData["Title"] = "Vote Submitted";
 }
@@ -9,26 +10,44 @@
     Date: 4/9/21
     Description: Vote submitted page.
     -->
-
-<div class="general-container">
-    <div class="text-center">
-        <h1 class="display-4">Vote Submitted</h1>
-        <img src="/Images/VoteSubmittedNoBG.png" alt="Vote Submitted" style="width:256px;height:256px;" />
+@if (signedIn.isSignedIn)
+{
+    <div class="general-container">
         <div class="text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <form action="/Login">
-                            <input type="submit" value="Sign Out" style="background-color: #af4c4c; color: white; cursor: pointer;">
-                        </form>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <form action="/Elections">
-                            <input type="submit" value="Continue">
-                        </form>
+            <h1 class="display-4">Vote Submitted</h1>
+            <img src="/Images/VoteSubmittedNoBG.png" alt="Vote Submitted" style="width:256px;height:256px;" />
+            <div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <form action="/Login">
+                                <input type="submit" value="Sign Out" style="background-color: #af4c4c; color: white; cursor: pointer;">
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <form action="/Elections">
+                                <input type="submit" value="Continue">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+}
+else
+{
+<div class="general-container">
+    <div class="text-center">
+        <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
+        <h1 class="display-4">Oops!</h1>
+        <h2 class="text-danger">You must be signed in to visit this page.</h2>
+        <br />
+        <form action="/Login">
+            <div class="text-center">
+                <input type="submit" value="Log In">
+            </div>
+        </form>
+    </div>
 </div>
+}
