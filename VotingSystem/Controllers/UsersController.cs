@@ -21,14 +21,14 @@ namespace VotingSystem.Controllers
             List<Classes.User> userListClasses = new List<Classes.User>();
 
             foreach (Models.User user in userListModel) {
-                userListClasses.Add( new Classes.User(int.Parse(user.UserID), user.Email, user.Password, user.Name, false) );
+                userListClasses.Add( new Classes.User(user.UserID, user.Email, user.Password, user.Name, false) );
             }
 
             return userListClasses;
         }
 
         // Returns the user corresponding to the given id, if they exist
-        public static Classes.User GetUser(string id)
+        public static Classes.User GetUser(int id)
         {
             if (id == null) {
                 return null;
@@ -36,7 +36,7 @@ namespace VotingSystem.Controllers
 
             Models.User user = _context.Users.FirstOrDefault(m => m.UserID == id);
 
-            return new Classes.User(int.Parse(user.UserID), user.Email, user.Password, user.Name, false);
+            return new Classes.User(user.UserID, user.Email, user.Password, user.Name, false);
         }
 
         // Returns the user corresponding to the given email, if they exist
@@ -48,7 +48,7 @@ namespace VotingSystem.Controllers
 
             Models.User user = _context.Users.FirstOrDefault(m => m.Email == email);
 
-            return new Classes.User(int.Parse(user.UserID), user.Email, user.Password, user.Name, false);
+            return new Classes.User(user.UserID, user.Email, user.Password, user.Name, false);
         }
 
         // Creates a new user
@@ -71,14 +71,14 @@ namespace VotingSystem.Controllers
             }
 
             Models.User newUser = new Models.User(user.Email, user.Password, user.Name);
-            newUser.UserID = $"{user.UserId}";
+            newUser.UserID = user.UserId;
 
             try {
                 _context.Update(newUser);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e) {
-                if (!UserExists($"{user.UserId}")) {
+                if (!UserExists(user.UserId)) {
                     return false;
                 }
                 else {
@@ -90,7 +90,7 @@ namespace VotingSystem.Controllers
         }
 
         // Deletes the user corresponding to the given id, if they exist
-        public static void Delete(string id)
+        public static void Delete(int id)
         {
             if (id == null) {
                 return;
@@ -107,7 +107,7 @@ namespace VotingSystem.Controllers
         }
 
         // Checks if a user corresponding to the given id exists
-        private static bool UserExists(string id)
+        private static bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserID == id);
         }

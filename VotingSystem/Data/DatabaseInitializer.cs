@@ -20,9 +20,9 @@ namespace VotingSystem.Data
 
             var users = new User[]
            {
-                new User{Name="Tom Walton",Email="twalton4@huskers.unl.edu",Password="dummyvariable",UserID="tom2963"},
-                new User{Name ="Kalen Wallin",Email ="kalenwallin@gmail.com",Password ="dummyvariable",UserID ="kalenwallin2"},
-                new User{Name="Your Mom",Email="yourmom@yahoo.com",Password="yourmom",UserID="yourmom2" }
+                new User{Name="Tom Walton",Email="twalton4@huskers.unl.edu",Password="dummyvariable"},
+                new User{Name ="Kalen Wallin",Email ="kalenwallin@gmail.com",Password ="dummyvariable"},
+                new User{Name="Your Mom",Email="yourmom@yahoo.com",Password="yourmom"}
            };
 
             foreach (User u in users)
