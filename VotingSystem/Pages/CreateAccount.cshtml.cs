@@ -38,6 +38,7 @@ namespace VotingSystem.Pages.Shared
                 UsersController.Create(Email, Password, Name);
             } catch (Exception e)
             {
+                Console.WriteLine(e);
                 CreateAccountFailed = true;
                 return Page();
             }

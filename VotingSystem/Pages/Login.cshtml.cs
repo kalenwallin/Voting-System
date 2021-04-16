@@ -31,7 +31,7 @@ namespace VotingSystem.Pages.Shared
                 SignedIn = false;
             }
         }
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             User u = new Classes.User(0, Email, Password, "test", false);
             try
@@ -47,12 +47,6 @@ namespace VotingSystem.Pages.Shared
             signedIn.isSignedIn = true;
             //get the user from the database
             return RedirectToPage("Elections");
-        }
-
-        public async Task<IActionResult> OnPostLogoutAsync()
-        {
-            signedIn.isSignedIn = false;
-            return RedirectToPage("Login");
         }
     }
 }
