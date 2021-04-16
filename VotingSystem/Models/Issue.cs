@@ -13,7 +13,6 @@ namespace VotingSystem.Models
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public ICollection<Election> Elections { get; set; }
 
     }
 }

@@ -11,7 +11,6 @@ namespace VotingSystem.Models
         public int Votes { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
-        
-        public ICollection<Election> Elections { get; set; }
+
     }
 }

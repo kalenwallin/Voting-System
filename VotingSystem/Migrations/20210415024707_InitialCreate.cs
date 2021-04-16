@@ -22,6 +22,20 @@ namespace VotingSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Election",
+                columns: table => new
+                {
+                    ElectionID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Year = table.Column<int>(nullable: false),
+                    Open = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Election", x => x.ElectionID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Issue",
                 columns: table => new
                 {
@@ -50,59 +64,21 @@ namespace VotingSystem.Migrations
                 {
                     table.PrimaryKey("PK_User", x => x.UserID);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Election",
-                columns: table => new
-                {
-                    ElectionID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Year = table.Column<int>(nullable: false),
-                    Open = table.Column<bool>(nullable: false),
-                    CandidateElectionID = table.Column<int>(nullable: true),
-                    IssueElectionID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Election", x => x.ElectionID);
-                    table.ForeignKey(
-                        name: "FK_Election_Candidate_CandidateElectionID",
-                        column: x => x.CandidateElectionID,
-                        principalTable: "Candidate",
-                        principalColumn: "ElectionID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Election_Issue_IssueElectionID",
-                        column: x => x.IssueElectionID,
-                        principalTable: "Issue",
-                        principalColumn: "ElectionID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Election_CandidateElectionID",
-                table: "Election",
-                column: "CandidateElectionID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Election_IssueElectionID",
-                table: "Election",
-                column: "IssueElectionID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Election");
-
-            migrationBuilder.DropTable(
-                name: "User");
-
-            migrationBuilder.DropTable(
                 name: "Candidate");
 
             migrationBuilder.DropTable(
+                name: "Election");
+
+            migrationBuilder.DropTable(
                 name: "Issue");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

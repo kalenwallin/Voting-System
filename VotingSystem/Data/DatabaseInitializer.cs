@@ -34,7 +34,8 @@ namespace VotingSystem.Data
 
             var elections = new Election[]
             {
-                new Election{ElectionID=0001,Open=true,Year=2021}
+                new Election{Open=true,Year=2021},
+                new Election{Open=true,Year=2022}
             };
 
             foreach (Election e in elections)
@@ -48,7 +49,7 @@ namespace VotingSystem.Data
             {
                 new Issue{Description="The Pacopolis Department of Recreation passed a bill, on January 21, 2021, to build a park on the corner of 1st street." +
                 "The park will enter development if they receive a majoral vote in this election. If you are in favor of the city park, select yes. If not, select no."
-                ,ElectionID=0001,Title="City Park",VotesAgainst=0,VotesFor=0}
+                ,Title="City Park",VotesAgainst=0,VotesFor=0}
             };
 
             foreach(Issue i in issues)
@@ -59,10 +60,10 @@ namespace VotingSystem.Data
 
             var candidates = new Candidate[]
             {
-                new Candidate{ElectionID=0001,Name="Pat Mann",Race="Mayoral Race",Votes=0},
-                new Candidate{ElectionID=0001,Name="Dawn KeyKong",Race="Mayoral Race",Votes=0},
-                new Candidate{ElectionID=0001,Name="John Doe",Race="Sheriff Election",Votes=0},
-                new Candidate{ElectionID=0001,Name="Mary Jane",Race="Sheriff Election",Votes=0}
+                new Candidate{Name="Pat Mann",Race="Mayoral Race",Votes=0},
+                new Candidate{Name="Dawn KeyKong",Race="Mayoral Race",Votes=0},
+                new Candidate{Name="John Doe",Race="Sheriff Election",Votes=0},
+                new Candidate{Name="Mary Jane",Race="Sheriff Election",Votes=0}
             };
 
             foreach(Candidate c in candidates)

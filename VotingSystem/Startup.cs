@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using VotingSystem.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace VotingSystem
 {
@@ -39,7 +40,6 @@ namespace VotingSystem
             //Adds the db context from Data
             services.AddDbContext<VotingSystemContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("VotingSystemContext")));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,8 +60,6 @@ namespace VotingSystem
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -12,31 +12,34 @@ namespace VotingSystem.Pages.Shared
 {
     public class CreateAccountModel : PageModel
     {
-        [BindProperty] 
-        [StringLength(60, MinimumLength = 5, ErrorMessage = "Full Name must be between 5 and 60 characters.")] 
-        [Required]  public string Name { get; set; }
+        [BindProperty]
+        [StringLength(60, MinimumLength = 5, ErrorMessage = "Full Name must be between 5 and 60 characters.")]
+        [Required] public string Name { get; set; }
 
-        [BindProperty] 
-        [StringLength(60, MinimumLength = 8, ErrorMessage = "Email must be between 8 and 60 characters.")] 
+        [BindProperty]
+        [StringLength(60, MinimumLength = 8, ErrorMessage = "Email must be between 8 and 60 characters.")]
         [Required] public string Email { get; set; }
 
-        [BindProperty] 
-        [StringLength(20, MinimumLength = 5, ErrorMessage = "Password must be between 5 and 20 characters.")] 
+        [BindProperty]
+        [StringLength(20, MinimumLength = 5, ErrorMessage = "Password must be between 5 and 20 characters.")]
         [Required] public string Password { get; set; }
 
-        [BindProperty] 
+        [BindProperty]
         [Compare("Password", ErrorMessage = "Retype password doesn't match, Type again!")]
         [Required] public string RetypePassword { get; set; }
 
+        [BindProperty] public bool CreateAccountFailed { get; private set; }
+
         public IActionResult OnPostAsync()
         {
-            // User u = new User(1, Email, Password, Name, false);
-
-            try {
+            try
+            {
+                //insert the user into the database
                 UsersController.Create(Email, Password, Name);
-            }
-            catch (Exception e) {
-
+            } catch (Exception e)
+            {
+                CreateAccountFailed = true;
+                return Page();
             }
 
             //send the user to the database

@@ -2,6 +2,7 @@
 @model VotingSystem.Pages.Shared.CreateAccountModel
 @{
     ViewData["Title"] = "Create an Account";
+    bool createAccountFailed = Model.CreateAccountFailed;
 }
 
 <!--
@@ -15,6 +16,10 @@
         <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
         <h1 class="display-4">Create an Account</h1>
         <br />
+        @if (createAccountFailed)
+        {
+            <span class="text-danger">Account Creation failed please try again.</span>
+        }
         <form method="post">
             <br />
             <div class="text-center">
@@ -38,7 +43,11 @@
             <div class="text-center">
                 <input type="password" id="retype-password" placeholder="Retype Password" asp-for="RetypePassword" required>
                 <br />
+                @if (!createAccountFailed)
+            {
                 <span asp-validation-for="RetypePassword" class="text-danger"></span>
+            }
+                
             </div>
             <br />
             <div class="text-center">
