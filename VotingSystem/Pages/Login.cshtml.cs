@@ -28,7 +28,7 @@ namespace VotingSystem.Pages.Shared
         {
             if(key1 != null)
             {
-                SignedIn = bool.Parse(key1);
+                SignedIn = false;
             }
         }
         public async Task<IActionResult> OnPostAsync()
