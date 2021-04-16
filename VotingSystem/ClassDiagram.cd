@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VotingSystem.Pages.Shared.CreateAccountModel" Collapsed="true">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQAIAAAAAACAAIEAAAAAAA=</HashCode>
+      <FileName>Pages\CreateAccount.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Pages.Shared.LoginModel" Collapsed="true">
+    <Position X="14.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAACAAAAAAAAAAAAAAAAAAAAACAAQAAAAAEAA=</HashCode>
+      <FileName>Pages\Login.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Pages.ElectionsModel" Collapsed="true">
+    <Position X="16.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Pages\Elections.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Pages.ErrorModel" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAIAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Pages\Error.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Pages.PublicVoterListModel" Collapsed="true">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Pages\PublicVoterList.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Pages.VoteModel" Collapsed="true">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAACEAAAAAAA=</HashCode>
+      <FileName>Pages\Vote.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Pages.VoteSubmittedModel" Collapsed="true">
+    <Position X="11.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Pages\VoteSubmitted.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Models.Candidate" Collapsed="true">
+    <Position X="9.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wCAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Candidate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Models.User" Collapsed="true">
+    <Position X="14.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAwAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Migrations.Initial" Collapsed="true">
+    <Position X="11.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20210416151245_Initial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Migrations.VotingSystemContextModelSnapshot" Collapsed="true">
+    <Position X="14.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Migrations\VotingSystemContextModelSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Data.DatabaseInitializer" Collapsed="true">
+    <Position X="13" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\DatabaseInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Data.VotingSystemContext" Collapsed="true">
+    <Position X="13" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAACAAAAAAAAAAAAAAAAAAEAAAICAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\VotingSystemContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Controllers.ElectionsController" Collapsed="true">
+    <Position X="14.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAABBACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ElectionsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Controllers.IssuesController" Collapsed="true">
+    <Position X="13" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABBACAAAAAAAAAAAEEAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\IssuesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Controllers.UsersController" Collapsed="true">
+    <Position X="16.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIABQAAgAAAAAAAAAEAAEACEAAAAAEAAAA=</HashCode>
+      <FileName>Controllers\UsersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Classes.Ballot" Collapsed="true">
+    <Position X="6" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAIAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Ballot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Classes.Election" Collapsed="true">
+    <Position X="4.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAIAEEEAAAAAAEAAAAAAAAAAAAACDAAAA=</HashCode>
+      <FileName>Classes\Election.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Classes.Issue" Collapsed="true">
+    <Position X="7" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAgIEAEAAAIAAAEAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Classes\Issue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Classes.signedIn" Collapsed="true">
+    <Position X="11.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAgAA=</HashCode>
+      <FileName>Classes\signedIn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Program" Collapsed="true">
+    <Position X="16.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAE=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VotingSystem.Startup" Collapsed="true">
+    <Position X="13" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
