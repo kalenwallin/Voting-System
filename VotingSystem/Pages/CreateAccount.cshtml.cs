@@ -35,12 +35,13 @@ namespace VotingSystem.Pages.Shared
             try
             {
                 //insert the user into the database
-                //await CreateUser(Email, Password, Name);
+                UsersController.Create(Email, Password, Name);
             } catch (Exception e)
             {
                 CreateAccountFailed = true;
                 return Page();
             }
+
             //send the user to the database
             return RedirectToPage("Login");
         }
