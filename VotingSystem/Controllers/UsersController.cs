@@ -30,9 +30,6 @@ namespace VotingSystem.Controllers
         // Returns the user corresponding to the given id, if they exist
         public static Classes.User GetUser(int id)
         {
-            if (id == null) {
-                return null;
-            }
 
             Models.User user = _context.Users.FirstOrDefault(m => m.UserID == id);
 
@@ -62,11 +59,11 @@ namespace VotingSystem.Controllers
 
         // Edits an existing user by replacing it with the new given user
         // Returns true if the changes were successfully made
-        public static bool Edit(string id, Classes.User user)
+        public static bool Edit(int id, Classes.User user)
         {
             // Check that the user id's match.
             // This verifies that the new user given is based on the previous user
-            if (id != $"{user.UserId}") {
+            if (id != user.UserId) {
                 return false;
             }
 
@@ -92,9 +89,6 @@ namespace VotingSystem.Controllers
         // Deletes the user corresponding to the given id, if they exist
         public static void Delete(int id)
         {
-            if (id == null) {
-                return;
-            }
 
             Models.User user = _context.Users.FirstOrDefault(m => m.UserID == id);
 
