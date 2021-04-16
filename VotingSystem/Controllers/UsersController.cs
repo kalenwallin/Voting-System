@@ -44,7 +44,10 @@ namespace VotingSystem.Controllers
             }
 
             Models.User user = _context.Users.FirstOrDefault(m => m.Email == email);
-
+            if (user == null)
+            {
+                throw new System.Exception();
+            }
             return new Classes.User(user.UserID, user.Email, user.Password, user.Name, false);
         }
 

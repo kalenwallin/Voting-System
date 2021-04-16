@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using VotingSystem.Classes;
+using VotingSystem.Controllers;
 
 namespace VotingSystem.Pages.Shared
 {
@@ -33,11 +34,16 @@ namespace VotingSystem.Pages.Shared
         }
         public IActionResult OnPost()
         {
-            User u = new Classes.User(0, Email, Password, "test", false);
+            Classes.User u;
             try
             {
                 //load the user from the database using Email and Password
                 //User u = await LoadUser(Email, Password);
+                u = UsersController.GetUserByEmail(Email);
+                if(Password != u.Password)
+                {
+                    throw new System.Exception();
+                }
             }
             catch (Exception)
             {
