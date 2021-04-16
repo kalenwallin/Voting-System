@@ -71,8 +71,6 @@ namespace VotingSystem.Data
                 context.Candidates.Add(c);
             }
             context.SaveChanges();
-
-            Controllers.UsersController.SetContext(context);
         }
     }
 }

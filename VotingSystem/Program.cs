@@ -29,20 +29,19 @@ namespace VotingSystem
 
         private static void CreateDbIfNotExists(IHost host)
         {
-            using(var scope = host.Services.CreateScope())
+            var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<VotingSystemContext>();
+
+            try
             {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<VotingSystemContext>();
-                    DatabaseInitializer.InitializeDb(context);
-                }
-                catch(Exception e)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(e, "An error occured during database creation.");
-                }
+                DatabaseInitializer.InitializeDb(context);
+                Controllers.UsersController.SetContext(context);
             }
+            catch (Exception e) {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(e, "An error occured during database creation.");
+            }    
         }
     }
 }
