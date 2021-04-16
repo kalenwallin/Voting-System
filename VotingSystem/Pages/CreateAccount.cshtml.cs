@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using VotingSystem.Classes;
+using VotingSystem.Controllers;
 
 namespace VotingSystem.Pages.Shared
 {
@@ -29,7 +30,15 @@ namespace VotingSystem.Pages.Shared
 
         public IActionResult OnPostAsync()
         {
-            User u = new User(1, Email, Password, Name, false);
+            // User u = new User(1, Email, Password, Name, false);
+
+            try {
+                UsersController.Create(Email, Password, Name);
+            }
+            catch (Exception e) {
+
+            }
+
             //send the user to the database
             return RedirectToPage("Login");
         }

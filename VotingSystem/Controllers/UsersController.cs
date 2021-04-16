@@ -5,17 +5,17 @@ using VotingSystem.Data;
 
 namespace VotingSystem.Controllers
 {
-    public class UsersController
+    public static class UsersController
     {
-        private readonly VotingSystemContext _context;
+        private static VotingSystemContext _context;
 
-        public UsersController(VotingSystemContext context)
-        {
+
+        public static void SetContext (VotingSystemContext context) {
             _context = context;
         }
 
         // Returns a list of all users
-        public List<Classes.User> GetAllUsers()
+        public static List<Classes.User> GetAllUsers()
         {
             List<Models.User> userListModel = _context.Users.ToList();
             List<Classes.User> userListClasses = new List<Classes.User>();
@@ -28,7 +28,7 @@ namespace VotingSystem.Controllers
         }
 
         // Returns the user corresponding to the given id, if they exist
-        public Classes.User GetUser(string id)
+        public static Classes.User GetUser(string id)
         {
             if (id == null) {
                 return null;
@@ -39,8 +39,20 @@ namespace VotingSystem.Controllers
             return new Classes.User(int.Parse(user.UserID), user.Email, user.Password, user.Name, false);
         }
 
+        // Returns the user corresponding to the given email, if they exist
+        public static Classes.User GetUserByEmail(string email)
+        {
+            if (email == null) {
+                return null;
+            }
+
+            Models.User user = _context.Users.FirstOrDefault(m => m.Email == email);
+
+            return new Classes.User(int.Parse(user.UserID), user.Email, user.Password, user.Name, false);
+        }
+
         // Creates a new user
-        public void Create(string email, string password, string name)
+        public static void Create(string email, string password, string name)
         {
             Models.User user = new Models.User(email, password, name);
 
@@ -50,20 +62,23 @@ namespace VotingSystem.Controllers
 
         // Edits an existing user by replacing it with the new given user
         // Returns true if the changes were successfully made
-        public bool Edit(string id, Models.User user)
+        public static bool Edit(string id, Classes.User user)
         {
             // Check that the user id's match.
             // This verifies that the new user given is based on the previous user
-            if (id != user.UserID) {
+            if (id != $"{user.UserId}") {
                 return false;
             }
 
+            Models.User newUser = new Models.User(user.Email, user.Password, user.Name);
+            newUser.UserID = $"{user.UserId}";
+
             try {
-                _context.Update(user);
+                _context.Update(newUser);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e) {
-                if (!UserExists(user.UserID)) {
+                if (!UserExists($"{user.UserId}")) {
                     return false;
                 }
                 else {
@@ -75,7 +90,7 @@ namespace VotingSystem.Controllers
         }
 
         // Deletes the user corresponding to the given id, if they exist
-        public void Delete(string id)
+        public static void Delete(string id)
         {
             if (id == null) {
                 return;
@@ -92,7 +107,7 @@ namespace VotingSystem.Controllers
         }
 
         // Checks if a user corresponding to the given id exists
-        private bool UserExists(string id)
+        private static bool UserExists(string id)
         {
             return _context.Users.Any(e => e.UserID == id);
         }

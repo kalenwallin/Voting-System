@@ -71,6 +71,7 @@ namespace VotingSystem.Data
             }
             context.SaveChanges();
 
+            Controllers.UsersController.SetContext(context);
         }
     }
 }
