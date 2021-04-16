@@ -17,23 +17,9 @@ namespace VotingSystem.Classes
 {
     public class User
     {
-        private int UserId { get; set; }
-        public int userId {
-            get { return UserId; }
-            set { UserId = userId; }
-        }
-        private string Email  { get; set; }
-        public string email
-        {
-            get { return Email; }
-            set { Email = email; }
-        }
-        private string Password { get; set; }
-        public string password
-        {
-            get { return Password; }
-            set { Password = password; }
-        }
+        public int UserId { get; set; }
+        public string Email  { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
 
         //should be used to ensure accounts do not vote again (don't want no voter fraud you feel me?)
