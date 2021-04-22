@@ -2,13 +2,16 @@
 <img align="right" src="https://raw.githubusercontent.com/kalenwallin/csce361/master/Branding/VotingSystemLogo.png?token=AHQF77CEQGG6X2Q52U65SBTAP4EYQ" width=45% height=45%>
 Author: Kalen Wallin
 
-Participants: Kalen Wallin, Jayden Carlon, Cameron Collingham, Thomas Walton, Joshua Bellmyer
+Developers: Kalen Wallin, Jayden Carlon, Cameron Collingham, Thomas Walton, Joshua Bellmyer
 
 ## About
 The Voting System is a web appplication created by a group of software engineering students at the University of Nebraska-Lincoln.
 
 ## Features
-The main feature of the Voting System is the ability to vote. After voting, a user can view their ballot. After an election, a user can view the results.
+- The main feature of the Voting System is the ability to vote. After voting, a user can view their ballot. After an election, a user can view the results.
+- Users must create an account and log in before accessing a ballot.
+- Ballots contain multiple electoral races and an issue to vote on.
+- A public voter list is made avaible to any third party to view who has or hasn't voted. However, that third party will not be able to view *whom* they have voted for.
 
 ## Getting started
 1. Create an account at [insert website here](https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO)
