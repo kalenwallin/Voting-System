@@ -18,10 +18,13 @@ The Voting System is a web appplication created by a group of software engineeri
   - Full Name: Must be between 5 and 20 characters.
 
 ## Getting started
-1. Create an account at [insert website here](https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO)
-2. Select an arbitrary election.
-3. Vote
-4. Repeat (for any additional elections).
+1. Clone the repository
+2. Open the solution file
+3. Press the play button at the top of the IDE (IIS Express/Voting System)
+4. Create an account/log in
+5. Select an arbitrary election.
+6. Vote
+7. Repeat (for any additional elections).
 
 ## Development Tools
 - .NET Framework, ASP.NET Core 3.1, Razor Pages
@@ -29,7 +32,7 @@ The Voting System is a web appplication created by a group of software engineeri
 - Operating System: Windows
 
 ## Database
-Entity Framework Core
+Entity Framework Core Local DB
 
 ## Contributing
 This is a private repository with respect to the University of Nebraska-Lincoln's Academic Integrity Policy. There shall be no contributions from anyone outside of our private group.
