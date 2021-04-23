@@ -12,6 +12,10 @@ The Voting System is a web appplication created by a group of software engineeri
 - Users must create an account and log in before accessing a ballot.
 - Ballots contain multiple electoral races and an issue to vote on.
 - A public voter list is made avaible to any third party to view who has or hasn't voted. However, that third party will not be able to view *whom* they have voted for.
+- Client-side Form Validation
+  - Email: Must be between 8 and 60 characters and contain an '@' symbol.
+  - Password: Must be between 5 and 20 characters. While creating an account, you must type the same password twice.
+  - Full Name: Must be between 5 and 20 characters.
 
 ## Getting started
 1. Create an account at [insert website here](https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO)
