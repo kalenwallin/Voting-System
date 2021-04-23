@@ -26,9 +26,11 @@ The Voting System is a web appplication created by a group of software engineeri
 ## Development Tools
 - ASP.NET Core 3.1, Razor Pages
 - Languages: HTML, CSS, C#, and Javascript.
+- Operating System: Windows
 
 ## Database
 Entity Framework Core
+
 ## Contributing
 This is a private repository with respect to the University of Nebraska-Lincoln's Academic Integrity Policy. There shall be no contributions from anyone outside of our private group.
 
