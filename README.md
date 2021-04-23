@@ -24,7 +24,7 @@ The Voting System is a web appplication created by a group of software engineeri
 4. Repeat (for any additional elections).
 
 ## Development Tools
-- ASP.NET Core 3.1, Razor Pages
+- .NET Framework, ASP.NET Core 3.1, Razor Pages
 - Languages: HTML, CSS, C#, and Javascript.
 - Operating System: Windows
 
