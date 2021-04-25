@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -38,12 +39,11 @@ namespace VotingSystem.Pages.Shared
                 UsersController.Create(Email, Password, Name);
             } catch (Exception e)
             {
-                Console.WriteLine(e);
+                Debug.WriteLine(e);
                 CreateAccountFailed = true;
                 return Page();
             }
 
-            //send the user to the database
             return RedirectToPage("Login");
         }
     }

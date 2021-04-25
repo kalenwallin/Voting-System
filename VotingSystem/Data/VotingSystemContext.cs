@@ -23,6 +23,9 @@ namespace VotingSystem.Data
         {
             builder.Entity<User>().ToTable("User")
                 .HasKey(u => u.UserID);
+            builder.Entity<User>(entity => {
+                entity.HasIndex(e => e.Email).IsUnique();
+            });
             builder.Entity<Election>().ToTable("Election")
                 .HasKey(e => e.ElectionID);
             builder.Entity<Candidate>().ToTable("Candidate")
