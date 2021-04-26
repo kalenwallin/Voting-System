@@ -25,11 +25,16 @@ namespace VotingSystem.Pages.Shared
         [Required] public string Password { get; set; }
         [BindProperty] public bool LoginFailed { get; private set; }
         [BindProperty] public bool SignedIn { get; set; }
-        public void OnGet(string key1)
+        [BindProperty] public bool AccountCreated { get; set; }
+        public void OnGet(string key1, string accountcreated)
         {
             if(key1 != null)
             {
                 SignedIn = false;
+            }
+            if(accountcreated != null)
+            {
+                AccountCreated = true;
             }
         }
         public IActionResult OnPost()

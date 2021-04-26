@@ -3,7 +3,6 @@
 @using VotingSystem.Classes; 
 @{
     ViewData["Title"] = "Login";
-    bool loginFailed = Model.LoginFailed;
     signedIn.isSignedIn = Model.SignedIn;
 }
 
@@ -17,9 +16,13 @@
     <div class="general-container">
         <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
         <h1 class="display-4">Log In</h1>
-        @if (loginFailed)
+        @if (Model.LoginFailed)
         {
             <span class="text-danger">Email address or password is incorrect. Please try again.</span>
+        }
+        @if (Model.AccountCreated)
+        {
+            <span class="text-success">Account successfully created! Please log in.</span>
         }
         <form method="post">
             <br />

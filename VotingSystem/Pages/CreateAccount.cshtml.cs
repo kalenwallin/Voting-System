@@ -43,8 +43,7 @@ namespace VotingSystem.Pages.Shared
                 CreateAccountFailed = true;
                 return Page();
             }
-
-            return RedirectToPage("Login");
+            return RedirectToPage("Login", new { accountcreated = (!CreateAccountFailed) });
         }
     }
 }
