@@ -10,22 +10,23 @@ using VotingSystem.Models;
 
 namespace VotingSystem.Controllers
 {
-    public class ElectionsController : Controller
+    public class CandidatesController : Controller
     {
         private readonly VotingSystemContext _context;
 
-        public ElectionsController(VotingSystemContext context)
+        public CandidatesController(VotingSystemContext context)
         {
             _context = context;
         }
 
-        // GET: Elections
+        // GET: Candidates
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Elections.ToListAsync());
+            var votingSystemContext = _context.Candidates.Include(c => c.Election);
+            return View(await votingSystemContext.ToListAsync());
         }
 
-        // GET: Elections/Details/5
+        // GET: Candidates/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace VotingSystem.Controllers
                 return NotFound();
             }
 
-            var election = await _context.Elections
-                .FirstOrDefaultAsync(m => m.ElectionID == id);
-            if (election == null)
+            var candidate = await _context.Candidates
+                .Include(c => c.Election)
+                .FirstOrDefaultAsync(m => m.CandidateID == id);
+            if (candidate == null)
             {
                 return NotFound();
             }
 
-            return View(election);
+            return View(candidate);
         }
 
-        // GET: Elections/Create
+        // GET: Candidates/Create
         public IActionResult Create()
         {
+            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID");
             return View();
         }
 
-        // POST: Elections/Create
+        // POST: Candidates/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ElectionID,Year,Open")] ElectionModels election)
+        public async Task<IActionResult> Create([Bind("CandidateID,ElectionID,Votes,Name,Race")] Candidate candidate)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(election);
+                _context.Add(candidate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(election);
+            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID", candidate.ElectionID);
+            return View(candidate);
         }
 
-        // GET: Elections/Edit/5
+        // GET: Candidates/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace VotingSystem.Controllers
                 return NotFound();
             }
 
-            var election = await _context.Elections.FindAsync(id);
-            if (election == null)
+            var candidate = await _context.Candidates.FindAsync(id);
+            if (candidate == null)
             {
                 return NotFound();
             }
-            return View(election);
+            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID", candidate.ElectionID);
+            return View(candidate);
         }
 
-        // POST: Elections/Edit/5
+        // POST: Candidates/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ElectionID,Year,Open")] ElectionModels election)
+        public async Task<IActionResult> Edit(int id, [Bind("CandidateID,ElectionID,Votes,Name,Race")] Candidate candidate)
         {
-            if (id != election.ElectionID)
+            if (id != candidate.CandidateID)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace VotingSystem.Controllers
             {
                 try
                 {
-                    _context.Update(election);
+                    _context.Update(candidate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ElectionExists(election.ElectionID))
+                    if (!CandidateExists(candidate.CandidateID))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace VotingSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(election);
+            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID", candidate.ElectionID);
+            return View(candidate);
         }
 
-        // GET: Elections/Delete/5
+        // GET: Candidates/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +130,31 @@ namespace VotingSystem.Controllers
                 return NotFound();
             }
 
-            var election = await _context.Elections
-                .FirstOrDefaultAsync(m => m.ElectionID == id);
-            if (election == null)
+            var candidate = await _context.Candidates
+                .Include(c => c.Election)
+                .FirstOrDefaultAsync(m => m.CandidateID == id);
+            if (candidate == null)
             {
                 return NotFound();
             }
 
-            return View(election);
+            return View(candidate);
         }
 
-        // POST: Elections/Delete/5
+        // POST: Candidates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var election = await _context.Elections.FindAsync(id);
-            _context.Elections.Remove(election);
+            var candidate = await _context.Candidates.FindAsync(id);
+            _context.Candidates.Remove(candidate);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ElectionExists(int id)
+        private bool CandidateExists(int id)
         {
-            return _context.Elections.Any(e => e.ElectionID == id);
+            return _context.Candidates.Any(e => e.CandidateID == id);
         }
     }
 }

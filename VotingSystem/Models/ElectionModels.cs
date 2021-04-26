@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace VotingSystem.Models
 {
-    public class Election
+    public class ElectionModels
     {
         public int ElectionID { get; set; }
         public int Year { get; set; }

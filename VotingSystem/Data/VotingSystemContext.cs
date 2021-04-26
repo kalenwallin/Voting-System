@@ -14,24 +14,27 @@ namespace VotingSystem.Data
         {
         }
 
-        public DbSet<VotingSystem.Models.User> Users { get; set; }
-        public DbSet<VotingSystem.Models.Election> Elections { get; set; }
-        public DbSet<VotingSystem.Models.Candidate> Candidates { get; set; }
-        public DbSet<VotingSystem.Models.Issue> Issues { get; set; }
+        public DbSet<VotingSystem.Models.UserModels> Users { get; set; }
+        public DbSet<VotingSystem.Models.ElectionModels> Elections { get; set; }
+        public DbSet<VotingSystem.Models.CandidateModels> Candidates { get; set; }
+        public DbSet<VotingSystem.Models.IssueModels> Issues { get; set; }
+        public DbSet<VotingSystem.Models.BallotModels> Ballots { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<User>().ToTable("User")
+            builder.Entity<UserModels>().ToTable("User")
                 .HasKey(u => u.UserID);
-            builder.Entity<User>(entity => {
+            builder.Entity<UserModels>(entity => {
                 entity.HasIndex(e => e.Email).IsUnique();
             });
-            builder.Entity<Election>().ToTable("Election")
+            builder.Entity<ElectionModels>().ToTable("Election")
                 .HasKey(e => e.ElectionID);
-            builder.Entity<Candidate>().ToTable("Candidate")
+            builder.Entity<CandidateModels>().ToTable("Candidate")
                 .HasKey(c => c.CandidateID);
-            builder.Entity<Issue>().ToTable("Issue")
+            builder.Entity<IssueModels>().ToTable("Issue")
                 .HasKey(i => i.IssueID);
+            builder.Entity<BallotModels>().ToTable("Ballot")
+                .HasKey(b => b.BallotID);
         }
     }
 }

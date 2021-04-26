@@ -57,15 +57,15 @@ namespace VotingSystem.Data
             }
             context.SaveChanges();
 
-            var candidates = new Candidate[]
+            var candidates = new CandidateModels[]
             {
-                new Candidate{Name="Pat Mann",Race="Mayoral Race",Votes=0,ElectionID=0001},
-                new Candidate{Name="Dawn KeyKong",Race="Mayoral Race",Votes=0,ElectionID=0001},
-                new Candidate{Name="John Doe",Race="Sheriff Election",Votes=0,ElectionID=0001},
-                new Candidate{Name="Mary Jane",Race="Sheriff Election",Votes=0,ElectionID=0001}
+                new CandidateModels{Name="Pat Mann",Race="Mayoral Race",Votes=0,ElectionID=0001},
+                new CandidateModels{Name="Dawn KeyKong",Race="Mayoral Race",Votes=0,ElectionID=0001},
+                new CandidateModels{Name="John Doe",Race="Sheriff Election",Votes=0,ElectionID=0001},
+                new CandidateModels{Name="Mary Jane",Race="Sheriff Election",Votes=0,ElectionID=0001}
             };
 
-            foreach(Candidate c in candidates)
+            foreach(CandidateModels c in candidates)
             {
                 context.Candidates.Add(c);
             }

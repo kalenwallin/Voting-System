@@ -18,10 +18,10 @@ namespace VotingSystem.Controllers
         // Returns a list of all users
         public static List<Classes.User> GetAllUsers()
         {
-            List<Models.User> userListModel = _context.Users.ToList();
+            List<Models.UserModels> userListModel = _context.Users.ToList();
             List<Classes.User> userListClasses = new List<Classes.User>();
 
-            foreach (Models.User user in userListModel) {
+            foreach (Models.UserModels user in userListModel) {
                 userListClasses.Add( new Classes.User(user.UserID, user.Email, user.Password, user.Name, false) );
             }
 
@@ -32,7 +32,7 @@ namespace VotingSystem.Controllers
         public static Classes.User GetUser(int id)
         {
 
-            Models.User user = _context.Users.FirstOrDefault(m => m.UserID == id);
+            Models.UserModels user = _context.Users.FirstOrDefault(m => m.UserID == id);
 
             return new Classes.User(user.UserID, user.Email, user.Password, user.Name, false);
         }
@@ -44,7 +44,7 @@ namespace VotingSystem.Controllers
                 return null;
             }
 
-            Models.User user = _context.Users.FirstOrDefault(m => m.Email == email);
+            Models.UserModels user = _context.Users.FirstOrDefault(m => m.Email == email);
             if (user == null)
             {
                 throw new System.Exception();
@@ -68,7 +68,7 @@ namespace VotingSystem.Controllers
             //if user does not exist then add it to database
             if (u == null)
             {
-                Models.User user = new Models.User(email, password, name);
+                Models.UserModels user = new Models.UserModels(email, password, name);
 
 
                 _context.Add(user);
@@ -89,7 +89,7 @@ namespace VotingSystem.Controllers
                 return false;
             }
 
-            Models.User newUser = new Models.User(user.Email, user.Password, user.Name);
+            Models.UserModels newUser = new Models.UserModels(user.Email, user.Password, user.Name);
             newUser.UserID = user.UserId;
 
             try {
@@ -112,7 +112,7 @@ namespace VotingSystem.Controllers
         public static void Delete(int id)
         {
 
-            Models.User user = _context.Users.FirstOrDefault(m => m.UserID == id);
+            Models.UserModels user = _context.Users.FirstOrDefault(m => m.UserID == id);
 
             if (user == null) {
                 return;

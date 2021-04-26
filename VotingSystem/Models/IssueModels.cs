@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace VotingSystem.Models
 {
-    public class Issue
+    public class IssueModels
     {
         public int IssueID { get; set; }
         public int? ElectionID { get; set; }
-        public Election Election { get; set; }
+        public ElectionModels Election { get; set; }
         public int VotesFor { get; set; }
         public int VotesAgainst { get; set; }
         public string Title { get; set; }
