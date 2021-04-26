@@ -10,8 +10,8 @@ namespace VotingSystem.Models
         public int BallotID { get; set; }
         public int UserId { get; set; }
         public int ElectionId { get; set; }
-        public int RaceOneID { get; set; }
-        public int RaceTwoID { get; set; }
+        public int CandidateID { get; set; }
+        public int IssueID { get; set; }
         
         
 
