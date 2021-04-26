@@ -45,6 +45,7 @@ namespace VotingSystem.Pages.Shared
                 //load the user from the database using Email and Password
                 //User u = await LoadUser(Email, Password);
                 u = UsersController.GetUserByEmail(Email);
+                //validate that the user's password is correct
                 if(Password != u.Password)
                 {
                     throw new System.Exception();
@@ -52,11 +53,11 @@ namespace VotingSystem.Pages.Shared
             }
             catch (Exception)
             {
+                //return page and display login failed message 
                 LoginFailed = true;
                 return Page();
             }
             signedIn.isSignedIn = true;
-            //get the user from the database
             return RedirectToPage("Elections");
         }
     }
