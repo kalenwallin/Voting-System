@@ -7,6 +7,7 @@ namespace VotingSystem.Models
 {
     public class Candidate
     {
+        public int CandidateID { get; set;}
         public int ElectionID { get; set; }
         public int Votes { get; set; }
         public string Name { get; set; }
