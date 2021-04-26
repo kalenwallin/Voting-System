@@ -102,7 +102,7 @@ namespace VotingSystem.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IssueExists(issue.ElectionID))
+                    if (!IssueExists(issue.IssueID))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace VotingSystem.Controllers
             }
 
             var issue = await _context.Issues
-                .FirstOrDefaultAsync(m => m.ElectionID == id);
+                .FirstOrDefaultAsync(m => m.IssueID == id);
             if (issue == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace VotingSystem.Controllers
 
         private bool IssueExists(int id)
         {
-            return _context.Issues.Any(e => e.ElectionID == id);
+            return _context.Issues.Any(e => e.IssueID == id);
         }
     }
 }

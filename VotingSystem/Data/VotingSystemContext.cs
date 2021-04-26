@@ -29,9 +29,9 @@ namespace VotingSystem.Data
             builder.Entity<Election>().ToTable("Election")
                 .HasKey(e => e.ElectionID);
             builder.Entity<Candidate>().ToTable("Candidate")
-                .HasKey(c => c.ElectionID);
+                .HasKey(c => c.CandidateID);
             builder.Entity<Issue>().ToTable("Issue")
-                .HasKey(i => i.ElectionID);
+                .HasKey(i => i.IssueID);
         }
     }
 }
