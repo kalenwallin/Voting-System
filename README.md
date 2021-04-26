@@ -35,6 +35,11 @@ The Voting System is a web appplication created by a group of software engineeri
 - Entity Framework Core
 - SQL Server/Local DB
 
+## Design
+- Model-View-Controller
+  - Razor pages has a view (UI) and a controller to handle input from the user and output information from the database (Model)
+  - There are additional controllers to separate concerns of each class (User, Election, Ballot, Issue).
+
 ## Contributing
 This is a private repository with respect to the University of Nebraska-Lincoln's Academic Integrity Policy. There shall be no contributions from anyone outside of our private group.
 
