@@ -10,7 +10,7 @@ using VotingSystem.Data;
 namespace VotingSystem.Migrations
 {
     [DbContext(typeof(VotingSystemContext))]
-    [Migration("20210426194107_Initial")]
+    [Migration("20210426202158_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,39 @@ namespace VotingSystem.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("VotingSystem.Models.Candidate", b =>
+            modelBuilder.Entity("VotingSystem.Models.BallotModels", b =>
+                {
+                    b.Property<int>("BallotID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CandidateID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ElectionID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IssueID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("BallotID");
+
+                    b.HasIndex("CandidateID");
+
+                    b.HasIndex("ElectionID");
+
+                    b.HasIndex("IssueID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Ballot");
+                });
+
+            modelBuilder.Entity("VotingSystem.Models.CandidateModels", b =>
                 {
                     b.Property<int>("CandidateID")
                         .ValueGeneratedOnAdd()
@@ -47,7 +79,7 @@ namespace VotingSystem.Migrations
                     b.ToTable("Candidate");
                 });
 
-            modelBuilder.Entity("VotingSystem.Models.Election", b =>
+            modelBuilder.Entity("VotingSystem.Models.ElectionModels", b =>
                 {
                     b.Property<int>("ElectionID")
                         .ValueGeneratedOnAdd()
@@ -65,7 +97,7 @@ namespace VotingSystem.Migrations
                     b.ToTable("Election");
                 });
 
-            modelBuilder.Entity("VotingSystem.Models.Issue", b =>
+            modelBuilder.Entity("VotingSystem.Models.IssueModels", b =>
                 {
                     b.Property<int>("IssueID")
                         .ValueGeneratedOnAdd()
@@ -94,7 +126,7 @@ namespace VotingSystem.Migrations
                     b.ToTable("Issue");
                 });
 
-            modelBuilder.Entity("VotingSystem.Models.User", b =>
+            modelBuilder.Entity("VotingSystem.Models.UserModels", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -119,16 +151,35 @@ namespace VotingSystem.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("VotingSystem.Models.Candidate", b =>
+            modelBuilder.Entity("VotingSystem.Models.BallotModels", b =>
                 {
-                    b.HasOne("VotingSystem.Models.Election", "Election")
+                    b.HasOne("VotingSystem.Models.CandidateModels", "Candidate")
+                        .WithMany()
+                        .HasForeignKey("CandidateID");
+
+                    b.HasOne("VotingSystem.Models.ElectionModels", "election")
+                        .WithMany()
+                        .HasForeignKey("ElectionID");
+
+                    b.HasOne("VotingSystem.Models.IssueModels", "issue")
+                        .WithMany()
+                        .HasForeignKey("IssueID");
+
+                    b.HasOne("VotingSystem.Models.UserModels", "user")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("VotingSystem.Models.CandidateModels", b =>
+                {
+                    b.HasOne("VotingSystem.Models.ElectionModels", "Election")
                         .WithMany()
                         .HasForeignKey("ElectionID");
                 });
 
-            modelBuilder.Entity("VotingSystem.Models.Issue", b =>
+            modelBuilder.Entity("VotingSystem.Models.IssueModels", b =>
                 {
-                    b.HasOne("VotingSystem.Models.Election", "Election")
+                    b.HasOne("VotingSystem.Models.ElectionModels", "Election")
                         .WithMany()
                         .HasForeignKey("ElectionID");
                 });

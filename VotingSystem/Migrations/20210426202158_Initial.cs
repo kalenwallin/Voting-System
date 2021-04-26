@@ -80,6 +80,66 @@ namespace VotingSystem.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Ballot",
+                columns: table => new
+                {
+                    BallotID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(nullable: true),
+                    ElectionID = table.Column<int>(nullable: true),
+                    CandidateID = table.Column<int>(nullable: true),
+                    IssueID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ballot", x => x.BallotID);
+                    table.ForeignKey(
+                        name: "FK_Ballot_Candidate_CandidateID",
+                        column: x => x.CandidateID,
+                        principalTable: "Candidate",
+                        principalColumn: "CandidateID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ballot_Election_ElectionID",
+                        column: x => x.ElectionID,
+                        principalTable: "Election",
+                        principalColumn: "ElectionID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ballot_Issue_IssueID",
+                        column: x => x.IssueID,
+                        principalTable: "Issue",
+                        principalColumn: "IssueID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ballot_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ballot_CandidateID",
+                table: "Ballot",
+                column: "CandidateID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ballot_ElectionID",
+                table: "Ballot",
+                column: "ElectionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ballot_IssueID",
+                table: "Ballot",
+                column: "IssueID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ballot_UserID",
+                table: "Ballot",
+                column: "UserID");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Candidate_ElectionID",
                 table: "Candidate",
@@ -100,6 +160,9 @@ namespace VotingSystem.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Ballot");
+
             migrationBuilder.DropTable(
                 name: "Candidate");
 

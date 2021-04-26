@@ -18,40 +18,40 @@ namespace VotingSystem.Data
                 return;
             }
 
-            var users = new User[]
+            var users = new UserModels[]
            {
-                new User{Name="Tom Walton",Email="twalton4@huskers.unl.edu",Password="dummyvariable"},
-                new User{Name ="Kalen Wallin",Email ="kalenwallin@gmail.com",Password ="dummyvariable"}
+                new UserModels{Name="Tom Walton",Email="twalton4@huskers.unl.edu",Password="dummyvariable"},
+                new UserModels{Name ="Kalen Wallin",Email ="kalenwallin@gmail.com",Password ="dummyvariable"}
            };
 
-            foreach (User u in users)
+            foreach (UserModels u in users)
             {
                 context.Users.Add(u);
             }
             context.SaveChanges();
 
 
-            var elections = new Election[]
+            var elections = new ElectionModels[]
             {
-                new Election{Open=true,Year=2021},
-                new Election{Open=true,Year=2022}
+                new ElectionModels{Open=true,Year=2021},
+                new ElectionModels{Open=true,Year=2022}
             };
 
-            foreach (Election e in elections)
+            foreach (ElectionModels e in elections)
             {
                 context.Elections.Add(e);
             }
             context.SaveChanges();
 
 
-            var issues = new Issue[]
+            var issues = new IssueModels[]
             {
-                new Issue{Description="The Pacopolis Department of Recreation passed a bill, on January 21, 2021, to build a park on the corner of 1st street." +
+                new IssueModels{Description="The Pacopolis Department of Recreation passed a bill, on January 21, 2021, to build a park on the corner of 1st street." +
                 "The park will enter development if they receive a majoral vote in this election. If you are in favor of the city park, select yes. If not, select no."
                 ,Title="City Park",VotesAgainst=0,VotesFor=0, ElectionID=0001}
             };
 
-            foreach(Issue i in issues)
+            foreach(IssueModels i in issues)
             {
                 context.Issues.Add(i);
             }
@@ -68,6 +68,17 @@ namespace VotingSystem.Data
             foreach(CandidateModels c in candidates)
             {
                 context.Candidates.Add(c);
+            }
+            context.SaveChanges();
+
+            var ballots = new BallotModels[]
+            {
+                new BallotModels{CandidateID=0,ElectionID=0001,IssueID=0,UserID=0}
+            };
+
+            foreach(BallotModels b in ballots)
+            {
+                context.Ballots.Add(b);
             }
             context.SaveChanges();
         }
