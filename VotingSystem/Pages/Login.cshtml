@@ -19,8 +19,7 @@
         @if (Model.LoginFailed)
         {
             <span class="text-danger">Email address or password is incorrect. Please try again.</span>
-        }
-        @if (Model.AccountCreated)
+        }else if (Model.AccountCreated)
         {
             <span class="text-success">Account successfully created! Please log in.</span>
         }
