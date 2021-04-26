@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using VotingSystem.Data;
@@ -54,10 +55,28 @@ namespace VotingSystem.Controllers
         // Creates a new user
         public static void Create(string email, string password, string name)
         {
-            Models.User user = new Models.User(email, password, name);
+            Classes.User u = null;
+            //get user by email if they exist
+            try
+            {
+                u = GetUserByEmail(email);
+            } catch (System.Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+            
+            //if user does not exist then add it to database
+            if (u == null)
+            {
+                Models.User user = new Models.User(email, password, name);
 
-            _context.Add(user);
-            _context.SaveChanges();
+
+                _context.Add(user);
+                _context.SaveChanges();
+            } else
+            {
+                throw new System.Exception();
+            }
         }
 
         // Edits an existing user by replacing it with the new given user

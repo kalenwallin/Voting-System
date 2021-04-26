@@ -18,42 +18,46 @@
         <br />
         @if (createAccountFailed)
         {
-            <span class="text-danger">An account with this email has already been created.<br />Please restart your browser and try again.</span>
+            <span class="text-danger">An account with this email has already been created.<br /> Please login or use a different email.</span>
         }
-        <form method="post">
+    <form method="post">
+        <br />
+        <div class="text-center">
+            <input type="text" id="name" placeholder="Full Name" asp-for="Name" required>
             <br />
-            <div class="text-center">
-                <input type="text" id="name" placeholder="Full Name" asp-for="Name" required>
-                <br />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="text-center">
+            <input type="email" id="email" placeholder="Email Address" asp-for="Email" required>
             <br />
-            <div class="text-center">
-                <input type="email" id="email" placeholder="Email Address" asp-for="Email" required>
-                <br />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="text-center">
+            <input type="password" id="password" placeholder="Password" asp-for="Password" required>
             <br />
-            <div class="text-center">
-                <input type="password" id="password" placeholder="Password" asp-for="Password" required>
-                <br />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="text-center">
+            <input type="password" id="retype-password" placeholder="Retype Password" asp-for="RetypePassword" required>
             <br />
-            <div class="text-center">
-                <input type="password" id="retype-password" placeholder="Retype Password" asp-for="RetypePassword" required>
-                <br />
-                @if (!createAccountFailed)
+            @if (!createAccountFailed)
             {
                 <span asp-validation-for="RetypePassword" class="text-danger"></span>
             }
-                
-            </div>
-            <br />
-            <div class="text-center">
-                <input type="submit" value="Submit">
-            </div>
-        </form>
+
+        </div>
+        <br />
+        <div class="text-center">
+            <input type="submit" value="Submit">
+        </div>
+        <br />
+        <div class="text-center">
+            <a href="/Login">Login</a>
+        </div>
+    </form>
     </div>
 </div>
 
