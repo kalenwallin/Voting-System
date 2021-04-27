@@ -10,19 +10,20 @@ namespace UnitTestVotingSystem
 {
     /*
      * Test classes Created and maintained by Cameron Collingham
+     * Test Case proved inefficient to be done as unit test
      */
-    [TestClass]
-    public class UnitTestUsersController
-    {
+    //[TestClass]
+   // public class UnitTestUsersController
+    //{
 
-        [TestMethod]
-        public void GetAllUsers_ReturnsUsers()
-        {
-            var result = UsersController.GetAllUsers();
-            var users = new User[]
-            {
-            };
-            CollectionAssert.AreEqual(users, result);
-        }
-    }
+        //[TestMethod]
+        //public void GetAllUsers_ReturnsUsers()
+        //{
+        //    var result = UsersController.GetAllUsers();
+        //    var users = new User[]
+        //    {
+        //    };
+        //    CollectionAssert.AreEqual(users, result);
+        //}
+    //}
 }
