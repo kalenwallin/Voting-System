@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestVotingSystem", "..\UnitTestVotingSystem\UnitTestVotingSystem.csproj", "{DF8270CE-8C68-4095-B0D6-D0EDF0A4E8D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{E0040595-5CA2-4320-B3F3-2BF02ACD2156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0040595-5CA2-4320-B3F3-2BF02ACD2156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0040595-5CA2-4320-B3F3-2BF02ACD2156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8270CE-8C68-4095-B0D6-D0EDF0A4E8D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8270CE-8C68-4095-B0D6-D0EDF0A4E8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8270CE-8C68-4095-B0D6-D0EDF0A4E8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8270CE-8C68-4095-B0D6-D0EDF0A4E8D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
