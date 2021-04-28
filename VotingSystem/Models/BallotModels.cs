@@ -14,10 +14,13 @@ namespace VotingSystem.Models
         public int? ElectionID { get; set; }
         public ElectionModels election { get; set; }
 
-        public int? CandidateID { get; set; }
-        public CandidateModels Candidate { get; set; }
+        public int? CandidateOneID { get; set; }
+        public CandidateModels CandidateOne { get; set; }
+        public int? CandidateTwoID { get; set; }
+        public CandidateModels CandidateTwo { get; set; }
 
         public int? IssueID { get; set; }
         public IssueModels issue { get; set; }
+        public bool VotedForIssue { get; set; }
     }
 }

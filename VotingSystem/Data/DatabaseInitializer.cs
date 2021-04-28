@@ -73,7 +73,7 @@ namespace VotingSystem.Data
 
             var ballots = new BallotModels[]
             {
-                new BallotModels{CandidateID=0,ElectionID=0001,IssueID=0,UserID=0}
+                new BallotModels{CandidateOneID=1,CandidateTwoID=3,ElectionID=0001,IssueID=1,UserID=1,VotedForIssue=true}
             };
 
             foreach(BallotModels b in ballots)

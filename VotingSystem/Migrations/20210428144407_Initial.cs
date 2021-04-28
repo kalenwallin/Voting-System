@@ -88,15 +88,23 @@ namespace VotingSystem.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(nullable: true),
                     ElectionID = table.Column<int>(nullable: true),
-                    CandidateID = table.Column<int>(nullable: true),
-                    IssueID = table.Column<int>(nullable: true)
+                    CandidateOneID = table.Column<int>(nullable: true),
+                    CandidateTwoID = table.Column<int>(nullable: true),
+                    IssueID = table.Column<int>(nullable: true),
+                    VotedForIssue = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ballot", x => x.BallotID);
                     table.ForeignKey(
-                        name: "FK_Ballot_Candidate_CandidateID",
-                        column: x => x.CandidateID,
+                        name: "FK_Ballot_Candidate_CandidateOneID",
+                        column: x => x.CandidateOneID,
+                        principalTable: "Candidate",
+                        principalColumn: "CandidateID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ballot_Candidate_CandidateTwoID",
+                        column: x => x.CandidateTwoID,
                         principalTable: "Candidate",
                         principalColumn: "CandidateID",
                         onDelete: ReferentialAction.Restrict);
@@ -121,9 +129,14 @@ namespace VotingSystem.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ballot_CandidateID",
+                name: "IX_Ballot_CandidateOneID",
                 table: "Ballot",
-                column: "CandidateID");
+                column: "CandidateOneID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ballot_CandidateTwoID",
+                table: "Ballot",
+                column: "CandidateTwoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ballot_ElectionID",

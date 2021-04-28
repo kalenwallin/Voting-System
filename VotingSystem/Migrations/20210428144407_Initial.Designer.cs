@@ -10,7 +10,7 @@ using VotingSystem.Data;
 namespace VotingSystem.Migrations
 {
     [DbContext(typeof(VotingSystemContext))]
-    [Migration("20210426202158_Initial")]
+    [Migration("20210428144407_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,10 @@ namespace VotingSystem.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CandidateID")
+                    b.Property<int?>("CandidateOneID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CandidateTwoID")
                         .HasColumnType("int");
 
                     b.Property<int?>("ElectionID")
@@ -40,9 +43,14 @@ namespace VotingSystem.Migrations
                     b.Property<int?>("UserID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("VotedForIssue")
+                        .HasColumnType("bit");
+
                     b.HasKey("BallotID");
 
-                    b.HasIndex("CandidateID");
+                    b.HasIndex("CandidateOneID");
+
+                    b.HasIndex("CandidateTwoID");
 
                     b.HasIndex("ElectionID");
 
@@ -153,9 +161,13 @@ namespace VotingSystem.Migrations
 
             modelBuilder.Entity("VotingSystem.Models.BallotModels", b =>
                 {
-                    b.HasOne("VotingSystem.Models.CandidateModels", "Candidate")
+                    b.HasOne("VotingSystem.Models.CandidateModels", "CandidateOne")
                         .WithMany()
-                        .HasForeignKey("CandidateID");
+                        .HasForeignKey("CandidateOneID");
+
+                    b.HasOne("VotingSystem.Models.CandidateModels", "CandidateTwo")
+                        .WithMany()
+                        .HasForeignKey("CandidateTwoID");
 
                     b.HasOne("VotingSystem.Models.ElectionModels", "election")
                         .WithMany()
