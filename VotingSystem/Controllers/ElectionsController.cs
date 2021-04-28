@@ -7,145 +7,109 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VotingSystem.Data;
 using VotingSystem.Models;
+using VotingSystem.Classes;
 
 namespace VotingSystem.Controllers
 {
-    public class ElectionsController : Controller
+    public class ElectionsController
     {
-        private readonly VotingSystemContext _context;
+        private static VotingSystemContext _context;
 
-        public ElectionsController(VotingSystemContext context)
-        {
+        public static void SetContext(VotingSystemContext context) {
             _context = context;
         }
 
-        // GET: Elections
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Elections.ToListAsync());
+        // Returns a list of all elections
+        public static List<Election> GetAllElections(int electionId) {
+
+            List<ElectionModels> electionModels = _context.Elections.ToList();
+            List<Election> elections = new List<Election>();
+
+            foreach (ElectionModels em in electionModels) {
+                elections.Add( GetElection(em.ElectionID) );
+            }
+
+            return elections;
         }
 
-        // GET: Elections/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+        // Returns the election corresponding to the given electionId
+        public static Election GetElection(int electionId) {
+            ElectionModels em = _context.Elections.FirstOrDefault(e => e.ElectionID == electionId);
+
+            // Return null if the election does not exist
+            if (em == null) {
+                return null;
             }
 
-            var election = await _context.Elections
-                .FirstOrDefaultAsync(m => m.ElectionID == id);
-            if (election == null)
-            {
-                return NotFound();
+            List<string> races = GetElectionRaces(electionId);
+            List<CandidateDecision> cDecisions = new List<CandidateDecision>();
+            List<IssueDecision> iDecisions = new List<IssueDecision>();
+
+            // TODO: Get actual name and date from the database
+            Election election = new Election("Pacopolis Election", new DateTime(2021, 5, 8));
+
+            // Add each race to the election
+            foreach (string race in races) {
+                List<Candidate> candidates = CandidatesController.GetCandidatesInRace(electionId, race);
+                cDecisions.Add(new CandidateDecision(race, candidates[0], candidates[1]));
             }
 
-            return View(election);
+            // TODO: Add issue to the election
+
+            election.CandidateDecisions = cDecisions;
+            election.IssueDecisions = iDecisions;
+
+            return election;
         }
 
-        // GET: Elections/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Elections/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ElectionID,Year,Open")] ElectionModels election)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(election);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(election);
-        }
-
-        // GET: Elections/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+        // Returns a list of all races in the given election
+        public static List<string> GetElectionRaces(int electionId) {
+            // Return null if the election does not exist
+            if (!ElectionExists(electionId)) {
+                return null;
             }
 
-            var election = await _context.Elections.FindAsync(id);
-            if (election == null)
-            {
-                return NotFound();
-            }
-            return View(election);
-        }
+            List<Candidate> candidates = CandidatesController.GetCandidatesInElection(electionId);
+            List<string> raceNames = new List<string>();
 
-        // POST: Elections/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ElectionID,Year,Open")] ElectionModels election)
-        {
-            if (id != election.ElectionID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(election);
-                    await _context.SaveChangesAsync();
+            foreach (Candidate c in candidates) {
+                if (!raceNames.Contains(c.Race)) {
+                    raceNames.Add(c.Race);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ElectionExists(election.ElectionID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
-            return View(election);
+
+            return raceNames;
         }
 
-        // GET: Elections/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var election = await _context.Elections
-                .FirstOrDefaultAsync(m => m.ElectionID == id);
-            if (election == null)
-            {
-                return NotFound();
-            }
-
-            return View(election);
+        // Creates a new Election
+        public static void Create(Election election) {
+            
+            // TODO: Implement this method
         }
 
-        // POST: Elections/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var election = await _context.Elections.FindAsync(id);
+        // Edits an existing election by replacing it with the new given election
+        // Returns true if the changes were successfully made
+        public static bool Edit(int electionId, Election election) {
+
+            // TODO: Implement this method
+
+            return false;
+        }
+
+        // Deletes the election corresponding to the given id, if it exists
+        public static void Delete(int id) {
+
+            ElectionModels election = _context.Elections.FirstOrDefault(m => m.ElectionID == id);
+
+            if (election == null) {
+                return;
+            }
+
             _context.Elections.Remove(election);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            _context.SaveChanges();
         }
 
-        private bool ElectionExists(int id)
+        public static bool ElectionExists(int id)
         {
             return _context.Elections.Any(e => e.ElectionID == id);
         }
