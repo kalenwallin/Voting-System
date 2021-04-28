@@ -13,7 +13,8 @@ namespace VotingSystem.Migrations
                 {
                     ElectionID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

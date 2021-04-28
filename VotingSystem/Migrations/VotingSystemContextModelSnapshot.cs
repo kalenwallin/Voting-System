@@ -95,6 +95,9 @@ namespace VotingSystem.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("string");
+
                     b.HasKey("ElectionID");
 
                     b.ToTable("Election");

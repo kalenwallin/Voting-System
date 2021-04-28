@@ -9,5 +9,6 @@ namespace VotingSystem.Models
     {
         public int ElectionID { get; set; }
         public DateTime Date { get; set; }
+        public string Name { get; set; }
     }
 }
