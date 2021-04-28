@@ -43,10 +43,10 @@ namespace VotingSystem.Controllers
 
             List<string> races = GetElectionRaces(electionId);
             List<CandidateDecision> cDecisions = new List<CandidateDecision>();
-            List<IssueDecision> iDecisions = new List<IssueDecision>();
+            List<IssueDecision> iDecisions = IssuesController.GetIssuesInElection(electionId);
 
-            // TODO: Get actual name and date from the database
-            Election election = new Election("Pacopolis Election", new DateTime(2021, 5, 8));
+            Election election = new Election(em.Name, em.Date);
+            election.ElectionId = electionId;
 
             // Add each race to the election
             foreach (string race in races) {
@@ -54,10 +54,7 @@ namespace VotingSystem.Controllers
                 cDecisions.Add(new CandidateDecision(race, candidates[0], candidates[1]));
             }
 
-            // TODO: Add issue to the election
-
             election.CandidateDecisions = cDecisions;
-            election.IssueDecisions = iDecisions;
 
             return election;
         }
@@ -81,19 +78,74 @@ namespace VotingSystem.Controllers
             return raceNames;
         }
 
-        // Creates a new Election
+        // Creates a new Election, and new races and issues to go along with it
         public static void Create(Election election) {
-            
-            // TODO: Implement this method
+            ElectionModels newElection = new ElectionModels();
+            newElection.Name = election.ElectionName;
+            newElection.Date = election.Date;
+
+            _context.Add(newElection);
+            _context.SaveChanges();
+
+            newElection = _context.Elections.FirstOrDefault(e => e.Name == election.ElectionName && e.Date == election.Date);
+
+            // Create candidate races
+            foreach (CandidateDecision cd in election.CandidateDecisions) {
+                CandidatesController.Create(cd.Candidate1.Name, cd.Candidate1.Race, newElection.ElectionID);
+                CandidatesController.Create(cd.Candidate2.Name, cd.Candidate2.Race, newElection.ElectionID);
+            }
+
+            // Create issues
+            foreach (IssueDecision isd in election.IssueDecisions) {
+                IssuesController.Create(newElection.ElectionID, isd.Name, isd.Description);
+            }
         }
 
         // Edits an existing election by replacing it with the new given election
         // Returns true if the changes were successfully made
         public static bool Edit(int electionId, Election election) {
+            // Check that the election id's match.
+            // This verifies that the new election given is based on the previous election
+            if (electionId != election.ElectionId) {
+                return false;
+            }
 
-            // TODO: Implement this method
+            ElectionModels oldElection = _context.Elections.FirstOrDefault(c => c.ElectionID == electionId);
 
-            return false;
+            // Cancel the edit if the candidate did not previously exist
+            if (oldElection == null) {
+                return false;
+            }
+
+            // Update the election's candidate races
+            foreach (CandidateDecision cd in election.CandidateDecisions) {
+                CandidatesController.Edit(cd.Candidate1.CandidateId, cd.Candidate1);
+                CandidatesController.Edit(cd.Candidate2.CandidateId, cd.Candidate2);
+            }
+
+            // Update the election's issues
+            foreach (IssueDecision isd in election.IssueDecisions) {
+                IssuesController.Edit(isd.IssueId, isd);
+            }
+
+            ElectionModels newElection = new ElectionModels();
+            newElection.Name = election.ElectionName;
+            newElection.Date = election.Date;
+
+            try {
+                _context.Update(newElection);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e) {
+                if (!ElectionExists(electionId)) {
+                    return false;
+                }
+                else {
+                    throw e;
+                }
+            }
+
+            return true;
         }
 
         // Deletes the election corresponding to the given id, if it exists

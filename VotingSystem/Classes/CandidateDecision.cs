@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace VotingSystem.Classes {
 
+    /*
+     * A class representing a race between two candidates
+     * 
+     * Josh Bellmyer    4/28/2021
+     */
     public class CandidateDecision {
 
         public string DecisionName { get; private set; }

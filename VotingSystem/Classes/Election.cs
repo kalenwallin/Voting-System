@@ -10,6 +10,7 @@ namespace VotingSystem.Classes {
      */
     public class Election {
 
+        public int ElectionId { get; set; }
         public string ElectionName { get; private set; }
         public DateTime Date { get; private set; }
         public List<CandidateDecision> CandidateDecisions { get; set; }

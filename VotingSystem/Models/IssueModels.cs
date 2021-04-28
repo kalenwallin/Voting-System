@@ -16,5 +16,12 @@ namespace VotingSystem.Models
         public string Description { get; set; }
 
 
+        public IssueModels(int? electionID, string title, string description) {
+            ElectionID = electionID;
+            Title = title;
+            Description = description;
+            VotesFor = 0;
+            VotesAgainst = 0;
+        }
     }
 }

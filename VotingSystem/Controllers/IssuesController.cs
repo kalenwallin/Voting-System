@@ -7,146 +7,96 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VotingSystem.Data;
 using VotingSystem.Models;
+using VotingSystem.Classes;
 
 namespace VotingSystem.Controllers
 {
-    public class IssuesController : Controller
+    public class IssuesController
     {
-        private readonly VotingSystemContext _context;
+        private static VotingSystemContext _context;
 
-        public IssuesController(VotingSystemContext context)
-        {
+        public static void SetContext(VotingSystemContext context) {
             _context = context;
         }
 
-        // GET: Issues
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Issues.ToListAsync());
+        // Returns all issues in the given election
+        public static List<IssueDecision> GetIssuesInElection(int electionId) {
+            List<IssueModels> issueModels = _context.Issues.Where(i => i.ElectionID == electionId).ToList();
+            List<IssueDecision> issues = new List<IssueDecision>();
+
+            foreach (IssueModels im in issueModels) {
+                issues.Add( new IssueDecision(im.IssueID, im.Title, im.Description, im.VotesFor, im.VotesAgainst) );
+            }
+
+            return issues;
         }
 
-        // GET: Issues/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+        // Creates a new issue in the given election
+        public static void Create(int electionId, string name, string description) {
+            ElectionModels election = _context.Elections.FirstOrDefault(e => e.ElectionID == electionId);
+
+            // Don't create the issue if the election doesn't exist
+            if (election == null) {
+                return;
             }
 
-            var issue = await _context.Issues
-                .FirstOrDefaultAsync(m => m.ElectionID == id);
-            if (issue == null)
-            {
-                return NotFound();
-            }
+            IssueModels issue = new IssueModels(electionId, name, description);
 
-            return View(issue);
+            _context.Add(issue);
+            _context.SaveChanges();
         }
 
-        // GET: Issues/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Issues/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ElectionID,VotesFor,VotesAgainst,Title,Description")] IssueModels issue)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(issue);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(issue);
-        }
-
-        // GET: Issues/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+        // Edits an existing Issue by replacing it with the new given issue
+        // Returns true if the changes were successfully made
+        public static bool Edit(int issueId, IssueDecision issue) {
+            // Check that the issue id's match.
+            // This verifies that the new issue given is based on the previous issue
+            if (issue.IssueId != issueId) {
+                return false;
             }
 
-            var issue = await _context.Issues.FindAsync(id);
-            if (issue == null)
-            {
-                return NotFound();
-            }
-            return View(issue);
-        }
+            IssueModels oldIssue = _context.Issues.FirstOrDefault(i => i.IssueID == issueId);
 
-        // POST: Issues/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ElectionID,VotesFor,VotesAgainst,Title,Description")] IssueModels issue)
-        {
-            if (id != issue.ElectionID)
-            {
-                return NotFound();
+            // Cancel the edit if the issue did not already exist
+            if (oldIssue == null) {
+                return false;
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(issue);
-                    await _context.SaveChangesAsync();
+            IssueModels newIssue = new IssueModels(oldIssue.ElectionID, issue.Name, issue.Description);
+            newIssue.IssueID = issueId;
+            newIssue.VotesFor = issue.VotesFor;
+            newIssue.VotesAgainst = issue.VotesAgainst;
+
+            try {
+                _context.Update(newIssue);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e) {
+                if (!IssueExists(issueId)) {
+                    return false;
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!IssueExists(issue.IssueID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                else {
+                    throw e;
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(issue);
+
+            return true;
         }
 
-        // GET: Issues/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // Deletes the issue corresponding to the given id, if it exists
+        public static void Delete(int issueId)
         {
-            if (id == null)
-            {
-                return NotFound();
+            IssueModels issue = _context.Issues.FirstOrDefault(c => c.IssueID == issueId);
+
+            if (issue == null) {
+                return;
             }
 
-            var issue = await _context.Issues
-                .FirstOrDefaultAsync(m => m.IssueID == id);
-            if (issue == null)
-            {
-                return NotFound();
-            }
-
-            return View(issue);
-        }
-
-        // POST: Issues/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var issue = await _context.Issues.FindAsync(id);
             _context.Issues.Remove(issue);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            _context.SaveChanges();
         }
 
-        private bool IssueExists(int id)
-        {
+        public static bool IssueExists(int id) {
             return _context.Issues.Any(e => e.IssueID == id);
         }
     }

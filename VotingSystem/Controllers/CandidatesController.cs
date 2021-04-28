@@ -75,10 +75,7 @@ namespace VotingSystem.Controllers
                 return;
             }
 
-            CandidateModels candidate = new CandidateModels();
-            candidate.Name = name;
-            candidate.Race = raceName;
-            candidate.ElectionID = electionId;
+            CandidateModels candidate = new CandidateModels(name, raceName, 0, electionId);
 
             _context.Add(candidate);
             _context.SaveChanges();
