@@ -14,5 +14,17 @@ namespace VotingSystem.Models
         public string Name { get; set; }
         public string Race { get; set; }
 
+        public CandidateModels()
+        {
+
+        }
+
+        public CandidateModels(string name, string race, int votes, int? electionID)
+        {
+            Name = name;
+            Race = race;
+            Votes = votes;
+            ElectionID = electionID;
+        }
     }
 }

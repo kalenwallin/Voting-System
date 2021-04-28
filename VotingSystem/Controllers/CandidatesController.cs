@@ -7,152 +7,133 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VotingSystem.Data;
 using VotingSystem.Models;
+using VotingSystem.Classes;
 
 namespace VotingSystem.Controllers
 {
-    public class CandidatesController : Controller
+    public static class CandidatesController
     {
-        private readonly VotingSystemContext _context;
+        private static VotingSystemContext _context;
 
-        public CandidatesController(VotingSystemContext context)
-        {
+        public static void SetContext(VotingSystemContext context) { 
             _context = context;
         }
 
-        // GET: Candidates
-        public async Task<IActionResult> Index()
-        {
-            var votingSystemContext = _context.Candidates.Include(c => c.Election);
-            return View(await votingSystemContext.ToListAsync());
+
+        // Returns a list of all candidates in the given election
+        public static List<Candidate> GetCandidatesInElection(int electionId) {
+
+            List<CandidateModels> candidateModels = _context.Candidates.Where(m => m.ElectionID == electionId).ToList();
+            List<Candidate> candidates = new List<Candidate>();
+
+            foreach (CandidateModels cm in candidateModels) {
+                candidates.Add( new Candidate(cm.CandidateID, cm.Name, cm.Race, cm.Votes) );
+            }
+
+            return candidates;
         }
 
-        // GET: Candidates/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+        // Returns a list containing the two candidates of a race, if the election exists
+        public static List<Candidate> GetCandidatesInRace(int electionId, string race) {
+
+            List<CandidateModels> candidateModels = _context.Candidates.Where(m => m.ElectionID == electionId && m.Race == race).ToList();
+
+            // Return null if the election does not exist
+            if (!ElectionsController.ElectionExists(electionId)) {
+                return null;
             }
 
-            var candidate = await _context.Candidates
-                .Include(c => c.Election)
-                .FirstOrDefaultAsync(m => m.CandidateID == id);
-            if (candidate == null)
-            {
-                return NotFound();
+            // Return null if there aren't exactly two candidates in the race
+            if (candidateModels.Count != 2) {
+                return null;
             }
 
-            return View(candidate);
+            List<Candidate> candidates = new List<Candidate>();
+
+            foreach (CandidateModels cm in candidateModels)
+            {
+                candidates.Add(new Candidate(cm.CandidateID, cm.Name, cm.Race, cm.Votes));
+            }
+
+            return candidates;
         }
 
-        // GET: Candidates/Create
-        public IActionResult Create()
-        {
-            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID");
-            return View();
+        // Returns the candidate with the given candidateId, if they exist
+        public static Candidate GetCandidate(int candidateId) {
+            CandidateModels candidateModel = _context.Candidates.FirstOrDefault(m => m.CandidateID == candidateId);
+
+            return new Candidate(candidateModel.CandidateID, candidateModel.Name, candidateModel.Race, candidateModel.Votes);
         }
 
-        // POST: Candidates/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CandidateID,ElectionID,Votes,Name,Race")] CandidateModels candidate)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(candidate);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+        // Creates a new candidate in the given election
+        public static void Create(string name, string raceName, int electionId) {
+
+            ElectionModels election = _context.Elections.FirstOrDefault(e => e.ElectionID == electionId);
+
+            // Don't create the candidate if the election does not exist
+            if (election == null) {
+                return;
             }
-            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID", candidate.ElectionID);
-            return View(candidate);
+
+            CandidateModels candidate = new CandidateModels();
+            candidate.Name = name;
+            candidate.Race = raceName;
+            candidate.ElectionID = electionId;
+
+            _context.Add(candidate);
+            _context.SaveChanges();
         }
 
-        // GET: Candidates/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+        // Edits an existing candidate by replacing it with the new given candidate
+        // Returns true if the changes were successfully made
+        public static bool Edit(int candidateId, Candidate candidate) {
+            // Check that the candidate id's match.
+            // This verifies that the new candidate given is based on the previous candidate
+            if (candidateId != candidate.CandidateId) {
+                return false;
             }
 
-            var candidate = await _context.Candidates.FindAsync(id);
-            if (candidate == null)
-            {
-                return NotFound();
-            }
-            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID", candidate.ElectionID);
-            return View(candidate);
-        }
+            CandidateModels oldCandidate = _context.Candidates.FirstOrDefault(c => c.CandidateID == candidateId);
 
-        // POST: Candidates/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CandidateID,ElectionID,Votes,Name,Race")] CandidateModels candidate)
-        {
-            if (id != candidate.CandidateID)
-            {
-                return NotFound();
+            // Cancel the edit if the candidate did not previously exist
+            if (oldCandidate == null) {
+                return false;
             }
 
-            if (ModelState.IsValid)
+            CandidateModels newCandidate = new CandidateModels(candidate.Name, candidate.Race, candidate.Votes, oldCandidate.ElectionID);
+            newCandidate.CandidateID = candidateId;
+
+            try {
+                _context.Update(newCandidate);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
             {
-                try
-                {
-                    _context.Update(candidate);
-                    await _context.SaveChangesAsync();
+                if (!CandidateExists(candidateId)) {
+                    return false;
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CandidateExists(candidate.CandidateID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                else {
+                    throw e;
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["ElectionID"] = new SelectList(_context.Elections, "ElectionID", "ElectionID", candidate.ElectionID);
-            return View(candidate);
+
+            return true;
         }
 
-        // GET: Candidates/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+        // Deletes the candidate corresponding to the given id, if they exist
+        public static void Delete(int candidateId) {
+            CandidateModels candidate = _context.Candidates.FirstOrDefault(c => c.CandidateID == candidateId);
+
+            if (candidate == null) {
+                return;
             }
 
-            var candidate = await _context.Candidates
-                .Include(c => c.Election)
-                .FirstOrDefaultAsync(m => m.CandidateID == id);
-            if (candidate == null)
-            {
-                return NotFound();
-            }
-
-            return View(candidate);
-        }
-
-        // POST: Candidates/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var candidate = await _context.Candidates.FindAsync(id);
             _context.Candidates.Remove(candidate);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            _context.SaveChanges();
         }
 
-        private bool CandidateExists(int id)
+
+        private static bool CandidateExists(int id)
         {
             return _context.Candidates.Any(e => e.CandidateID == id);
         }
