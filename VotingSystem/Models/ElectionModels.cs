@@ -8,7 +8,6 @@ namespace VotingSystem.Models
     public class ElectionModels
     {
         public int ElectionID { get; set; }
-        public int Year { get; set; }
-        public bool Open { get; set; }
+        public DateTime Date { get; set; }
     }
 }

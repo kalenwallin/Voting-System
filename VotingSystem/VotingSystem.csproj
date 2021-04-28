@@ -19,10 +19,11 @@
     <Compile Remove="Migrations\20210426201642_Initial.Designer.cs" />
     <Compile Remove="Migrations\20210426202158_Initial.cs" />
     <Compile Remove="Migrations\20210426202158_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20210428144407_Initial.cs" />
+    <Compile Remove="Migrations\20210428144407_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
