@@ -19,7 +19,6 @@ namespace VotingSystem.Controllers
             _context = context;
         }
 
-
         // Returns a list of all candidates in the given election
         public static List<Candidate> GetCandidatesInElection(int electionId) {
 

@@ -122,6 +122,18 @@ namespace VotingSystem.Controllers
             _context.SaveChanges();
         }
 
+        // Checks if the given user (by email) has voted in the given election
+        public static bool HasUserVoted(string email, int electionId) {
+            Models.UserModels user = _context.Users.FirstOrDefault(m => m.Email == email);
+
+            return HasUserVoted(user.UserID, electionId);
+        }
+
+        // Checks if the given user has voted in the given election
+        public static bool HasUserVoted(int userId, int electionId) {
+            return _context.Ballots.Any(b => b.UserID == userId && b.ElectionID == electionId);
+        }
+
         // Checks if a user corresponding to the given id exists
         private static bool UserExists(int id)
         {

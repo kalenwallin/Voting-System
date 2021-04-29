@@ -1,16 +1,28 @@
 ﻿namespace VotingSystem.Classes {
 
     /*
-     * An abstract class representing any type of ballot
+     * An class representing a single ballot
      * 
      * Josh Bellmyer    4/9/2021
      */
-    public abstract class Ballot {
+    public class Ballot {
 
-        public abstract int Year { get; protected set; }
-        public abstract bool Open { get; set; }
+        public int BallotId { get; set; }
+        public int UserId { get; set; }
+        public int ElectionId { get; set; }
+        public Candidate Candidate1 { get; private set; }
+        public Candidate Candidate2 { get; private set; }
+        public int IssueId { get; set; }
+        public bool VotedYes { get; private set; }
 
-        // Returns the current status of the ballot
-        public abstract string GetStatus();
+        public Ballot() { 
+        
+        }
+
+        public Ballot(Candidate candidate1, Candidate candidate2, bool votedYes) {
+            Candidate1 = candidate1;
+            Candidate2 = candidate2;
+            VotedYes = votedYes;
+        }
     }
 }
