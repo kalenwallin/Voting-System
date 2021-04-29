@@ -128,13 +128,12 @@ namespace VotingSystem.Controllers
             foreach (IssueDecision isd in election.IssueDecisions) {
                 IssuesController.Edit(isd.IssueId, isd);
             }
-
-            ElectionModels newElection = new ElectionModels();
-            newElection.Name = election.ElectionName;
-            newElection.Date = election.Date;
+            
+            oldElection.Name = election.ElectionName;
+            oldElection.Date = election.Date;
 
             try {
-                _context.Update(newElection);
+                _context.Update(oldElection);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e) {

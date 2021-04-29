@@ -46,6 +46,22 @@ namespace VotingSystem.Controllers
             _context.SaveChanges();
         }
 
+        // Increments an issue's vote count by one given a user's vote
+        public static void voteInc(IssueDecision issue, bool userVote)
+        {
+            int votesFor = issue.VotesFor;
+            int votesAgainst = issue.VotesAgainst;
+            if (userVote)
+            {
+                votesFor++;
+            } else
+            {
+                votesAgainst++;
+            }
+            IssueDecision newI = new IssueDecision(issue.IssueId, issue.Name, issue.Description, votesFor, votesAgainst);
+            Edit(issue.IssueId, newI);
+        }
+
         // Edits an existing Issue by replacing it with the new given issue
         // Returns true if the changes were successfully made
         public static bool Edit(int issueId, IssueDecision issue) {
@@ -62,13 +78,13 @@ namespace VotingSystem.Controllers
                 return false;
             }
 
-            IssueModels newIssue = new IssueModels(oldIssue.ElectionID, issue.Name, issue.Description);
-            newIssue.IssueID = issueId;
-            newIssue.VotesFor = issue.VotesFor;
-            newIssue.VotesAgainst = issue.VotesAgainst;
+            oldIssue.Title = issue.Name;
+            oldIssue.Description = issue.Description;
+            oldIssue.VotesFor = issue.VotesFor;
+            oldIssue.VotesAgainst = issue.VotesAgainst;
 
             try {
-                _context.Update(newIssue);
+                _context.Update(oldIssue);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e) {

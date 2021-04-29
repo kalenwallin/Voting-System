@@ -88,6 +88,16 @@ namespace VotingSystem.Controllers
             _context.SaveChanges();
         }
 
+        // Increments a candidates vote count by one
+        public static void voteInc(int candidateId)
+        {
+            Candidate c = GetCandidate(candidateId);
+            int votes = c.Votes;
+            votes++;
+            Candidate newC = new Candidate(candidateId, c.Name, c.Race, votes);
+            Edit(candidateId, newC);
+        }
+
         // Edits an existing candidate by replacing it with the new given candidate
         // Returns true if the changes were successfully made
         public static bool Edit(int candidateId, Candidate candidate) {
@@ -104,11 +114,12 @@ namespace VotingSystem.Controllers
                 return false;
             }
 
-            CandidateModels newCandidate = new CandidateModels(candidate.Name, candidate.Race, candidate.Votes, oldCandidate.ElectionID);
-            newCandidate.CandidateID = candidateId;
+            oldCandidate.Name = candidate.Name;
+            oldCandidate.Race = candidate.Race;
+            oldCandidate.Votes = candidate.Votes;
 
             try {
-                _context.Update(newCandidate);
+                _context.Update(oldCandidate);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)
