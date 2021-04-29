@@ -10,9 +10,6 @@ namespace VotingSystem.Classes
      *
      * Cameron Collingham
      * 
-     * Additional info from Kalen Wallin:
-     * I've made the important info private
-     * for Encapsulation's sake. 
      */
 {
     public class User
