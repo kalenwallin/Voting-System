@@ -37,6 +37,10 @@ namespace VotingSystem
             {
                 DatabaseInitializer.InitializeDb(context);
                 Controllers.UsersController.SetContext(context);
+                Controllers.ElectionsController.SetContext(context);
+                Controllers.CandidatesController.SetContext(context);
+                Controllers.IssuesController.SetContext(context);
+                Controllers.BallotController.SetContext(context);
             }
             catch (Exception e) {
                 var logger = services.GetRequiredService<ILogger<Program>>();
