@@ -33,8 +33,8 @@ namespace VotingSystem.Data
 
             var elections = new ElectionModels[]
             {
-                new ElectionModels{Date=new DateTime(2022, 11, 6), Name="Some Future Election"},
-                new ElectionModels{Date=new DateTime(2021, 11, 6), Name="2021 Pacopolis Election"}
+                new ElectionModels{Date=new DateTime(2022, 5, 7), Name="Some Future Election"},
+                new ElectionModels{Date=new DateTime(2021, 5, 7), Name="2021 Pacopolis Election"}
             };
 
             foreach (ElectionModels e in elections)
@@ -51,7 +51,7 @@ namespace VotingSystem.Data
                 // ,Title="City Park",VotesAgainst=0,VotesFor=0, ElectionID=0001}
 
                 new IssueModels(0001, "City Park", "The Pacopolis Department of Recreation passed a bill, on January 21, 2021, to build a park on the corner of 1st street." +
-                "The park will enter development if they receive a majoral vote in this election. If you are in favor of the city park, select yes. If not, select no.")
+                " The park will enter development if they receive a majoral vote in this election. If you are in favor of the city park, select yes. If not, select no.")
             };
 
             foreach(IssueModels i in issues)

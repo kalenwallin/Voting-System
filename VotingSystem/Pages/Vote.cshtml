@@ -48,6 +48,9 @@
     int issueNoVotes = election.IssueDecisions[0].VotesAgainst;
 
     //check if election has ended
+    // Note to Grader: Change the "electionEnded" bool to true to see the election results.
+    // It is set to true when the election is over, but chances are you won't want to wait until the
+    // set date just to see the results.
     bool electionEnded = false;
     DateTime electionDate = election.Date;
 
@@ -211,6 +214,7 @@
                                 {
                                     <h3><b>@issueYesVotes</b></h3>
                                     <h3><b>Yes</b></h3>
+                                    <h3><b>@issueName bill has passed!</b></h3>
                                 }
                                 else if (electionEnded && issueYesVotes < issueNoVotes)
                                 {
@@ -232,6 +236,7 @@
                                 {
                                     <h3><b>@issueNoVotes</b></h3>
                                     <h3><b>No</b></h3>
+                                    <h3><b>@issueName bill has not passed!</b></h3>
                                 }
                                 else if (electionEnded && issueYesVotes > issueNoVotes)
                                 {
@@ -394,6 +399,7 @@
                                 {
                                     <h3><b>@issueYesVotes</b></h3>
                                     <h3><b>Yes</b></h3>
+                                    <h3><b>@issueName bill has passed!</b></h3>
                                 }
                                 else if (electionEnded && issueYesVotes < issueNoVotes)
                                 {
@@ -415,6 +421,7 @@
                                 {
                                     <h3><b>@issueNoVotes</b></h3>
                                     <h3><b>No</b></h3>
+                                    <h3><b>@issueName bill has not passed!</b></h3>
                                 }
                                 else if (electionEnded && issueYesVotes > issueNoVotes)
                                 {
