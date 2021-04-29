@@ -2,30 +2,42 @@
 @model VotingSystem.Pages.VoteModel
 @using VotingSystem.Classes;
 @{
-    string electionName = "2021 Pacopolis Election";
+    //ballot UI
+    Election election = Model.election;
+    string electionName = election.ElectionName;
+    //for formatting purposes
+    string[] electionNameTokenized = electionName.Split();
     ViewData["Title"] = electionName;
-    string mayoralCandidateOneName = "Pat Mann";
-    string mayoralCandidateTwoName = "Dawn Keykong";
-    string sheriffCandidateOneName = "John Doe";
-    string sheriffCandidateTwoName = "Mary Jane";
-    string issueName = Model.election.IssueDecisions[0].Name;
-    string issueDesc = Model.election.IssueDecisions[0].Description;
+    string race1 = election.CandidateDecisions[0].DecisionName;
+    string race1Candidate1 = election.CandidateDecisions[0].Candidate1.Name;
+    string race1Candidate2 = election.CandidateDecisions[0].Candidate2.Name;
+    string race2 = election.CandidateDecisions[1].DecisionName;
+    string race2Candidate1 = election.CandidateDecisions[1].Candidate1.Name;
+    string race2Candidate2 = election.CandidateDecisions[1].Candidate2.Name;
+    // string mayoralCandidateOneName = "Pat Mann";
+    // string mayoralCandidateTwoName = "Dawn Keykong";
+    // string sheriffCandidateOneName = "John Doe";
+    // string sheriffCandidateTwoName = "Mary Jane";
+    string issueName = election.IssueDecisions[0].Name;
+    string issueDesc = election.IssueDecisions[0].Description;
 
-    //dummy variables for user while db isn't implemented
-            bool userVoted = false;
-    string mayoralVote = mayoralCandidateOneName;
-    string sheriffVote = sheriffCandidateOneName;
-    string issueVote = "Yes";
+    //user's votes
+    bool userVoted = false;
+    string race1Vote = "todo: user vote";
+    string race2Vote = "todo: user vote";
+    string issueVote = "todo: user vote";
 
-    //dummy variables for election results while db isn't implemented
-    int mayoralCandidateOneVotes = 10;
-    int mayoralCandidateTwoVotes = 15;
-    int sheriffCandidateOneVotes = 10;
-    int sheriffCandidateTwoVotes = 15;
-    int issueYesVotes = Model.election.IssueDecisions[0].VotesFor;
-    int issueNoVotes = Model.election.IssueDecisions[0].VotesAgainst;
-    bool electionEnded = false;
-    DateTime electionDate = new DateTime(2021, 5, 1);
+    //election results
+    int race1Candidate1Votes = election.CandidateDecisions[0].Candidate1.Votes;
+    int race1Candidate2Votes = election.CandidateDecisions[0].Candidate2.Votes;
+    int race2Candidate1Votes = election.CandidateDecisions[1].Candidate1.Votes;
+    int race2Candidate2Votes = election.CandidateDecisions[1].Candidate2.Votes;
+    int issueYesVotes = election.IssueDecisions[0].VotesFor;
+    int issueNoVotes = election.IssueDecisions[0].VotesAgainst;
+
+    //check if election has ended
+    bool electionEnded = true;
+    DateTime electionDate = election.Date;
 
     //if electionDate is earlier than now, then the election has ended
     if (DateTime.Compare(electionDate, DateTime.Now) < 0)
@@ -50,89 +62,117 @@
         <div class="general-container">
             <div class="text-center">
                 <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
-                <h1 class="display-4">2021 Pacopolis <br /> Election Ballot</h1>
+                <h1 class="display-4">@electionNameTokenized[0] @electionNameTokenized[1] <br /> @electionNameTokenized[2] Ballot</h1>
                 <br />
                 <header class="w3-container">
-                    <h2><b>Mayoral Race</b></h2>
+                    <h2><b>@race1</b></h2>
                 </header>
                 <form action="/VoteSubmitted" id="ballot" method="get">
                     <div class="container">
                         <div class="text-center">
-                            <h3>You selected <b>@mayoralVote</b></h3>
+                            <h3>You selected <b>@race1Vote</b></h3>
+                            @if (electionEnded && race1Candidate1Votes == race1Candidate2Votes)
+                            {
+                                <h3><b>It's a tie!</b></h3>
+                            }
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @mayoralCandidateOneVotes > @mayoralCandidateTwoVotes)
+                                @if (electionEnded && race1Candidate1Votes > race1Candidate2Votes)
                                 {
-                                    <h3><b>@mayoralCandidateOneVotes</b></h3>
-                                    <h3><b>@mayoralCandidateOneName Won!</b></h3>
+                                    <h3><b>@race1Candidate1Votes</b></h3>
+                                    <h3><b>@race1Candidate1 Won!</b></h3>
                                 }
-                                else if (electionEnded && @mayoralCandidateOneVotes < @mayoralCandidateTwoVotes)
+                                else if (electionEnded && race1Candidate1Votes < race1Candidate2Votes)
                                 {
-                                    <h3>@mayoralCandidateOneVotes</h3>
-                                    <h3>@mayoralCandidateOneName</h3>
+                                    <h3>@race1Candidate1Votes</h3>
+                                    <h3>@race1Candidate1</h3>
+                                }
+                                else if (electionEnded && race1Candidate1Votes == race1Candidate2Votes)
+                                {
+                                    <h3>@race1Candidate1Votes</h3>
+                                    <h3>@race1Candidate1</h3>
                                 }
                                 else
                                 {
-                                    <h3>@mayoralCandidateOneName</h3>
+                                    <h3>@race1Candidate1</h3>
                                 }
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @mayoralCandidateOneVotes < @mayoralCandidateTwoVotes)
+                                @if (electionEnded && race1Candidate1Votes < race1Candidate2Votes)
                                 {
-                                    <h3><b>@mayoralCandidateTwoVotes</b></h3>
-                                    <h3><b>@mayoralCandidateTwoName Won!</b></h3>
+                                    <h3><b>@race1Candidate2Votes</b></h3>
+                                    <h3><b>@race1Candidate2 Won!</b></h3>
                                 }
-                                else if (electionEnded && @mayoralCandidateOneVotes > @mayoralCandidateTwoVotes)
+                                else if (electionEnded && race1Candidate1Votes > race1Candidate2Votes)
                                 {
-                                    <h3>@mayoralCandidateTwoVotes</h3>
-                                    <h3>@mayoralCandidateTwoName</h3>
+                                    <h3>@race1Candidate2Votes</h3>
+                                    <h3>@race1Candidate2</h3>
+                                }
+                                else if (electionEnded && race1Candidate1Votes == race1Candidate2Votes)
+                                {
+                                    <h3>@race1Candidate2Votes</h3>
+                                    <h3>@race1Candidate2</h3>
                                 }
                                 else
                                 {
-                                    <h3>@mayoralCandidateTwoName</h3>
+                                    <h3>@race1Candidate2</h3>
                                 }
                             </div>
                         </div>
                     </div>
                     <header class="w3-container">
-                        <h2><b>Sheriff Election</b></h2>
+                        <h2><b>@race2</b></h2>
                     </header>
                     <div class="container">
                         <div class="text-center">
-                            <h3>You selected <b>@sheriffVote</b></h3>
+                            <h3>You selected <b>@race2Vote</b></h3>
+                            @if (electionEnded && race2Candidate1Votes == race2Candidate2Votes)
+                            {
+                                <h3><b>It's a tie!</b></h3>
+                            }
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @sheriffCandidateOneVotes > @sheriffCandidateTwoVotes)
+                                @if (electionEnded && race2Candidate1Votes > race2Candidate2Votes)
                                 {
-                                    <h3><b>@sheriffCandidateOneVotes</b></h3>
-                                    <h3><b>@sheriffCandidateOneName Won!</b></h3>
+                                    <h3><b>@race2Candidate1Votes</b></h3>
+                                    <h3><b>@race2Candidate1 Won!</b></h3>
                                 }
-                                else if (electionEnded && @sheriffCandidateOneVotes < @sheriffCandidateTwoVotes)
+                                else if (electionEnded && race2Candidate1Votes < race2Candidate2Votes)
                                 {
-                                    <h3>@sheriffCandidateOneVotes</h3>
-                                    <h3>@sheriffCandidateOneName</h3>
+                                    <h3>@race2Candidate1Votes</h3>
+                                    <h3>@race2Candidate1</h3>
+                                }
+                                else if (electionEnded && race2Candidate1Votes == race2Candidate2Votes)
+                                {
+                                    <h3>@race2Candidate1Votes</h3>
+                                    <h3>@race2Candidate1</h3>
                                 }
                                 else
                                 {
-                                    <h3>@sheriffCandidateOneName</h3>
+                                    <h3>@race2Candidate1</h3>
                                 }
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @sheriffCandidateOneVotes < @sheriffCandidateTwoVotes)
+                                @if (electionEnded && race2Candidate1Votes < race2Candidate2Votes)
                                 {
-                                    <h3><b>@sheriffCandidateTwoVotes</b></h3>
-                                    <h3><b>@sheriffCandidateTwoName Won!</b></h3>
+                                    <h3><b>@race2Candidate2Votes</b></h3>
+                                    <h3><b>@race2Candidate2Votes Won!</b></h3>
                                 }
-                                else if (electionEnded && @sheriffCandidateOneVotes > @sheriffCandidateTwoVotes)
+                                else if (electionEnded && race2Candidate1Votes > race2Candidate2Votes)
                                 {
-                                    <h3>@sheriffCandidateTwoVotes</h3>
-                                    <h3>@sheriffCandidateTwoName</h3>
+                                    <h3>@race2Candidate2Votes</h3>
+                                    <h3>@race2Candidate2</h3>
+                                }
+                                else if (electionEnded && race2Candidate1Votes == race2Candidate2Votes)
+                                {
+                                    <h3>@race2Candidate2Votes</h3>
+                                    <h3>@race2Candidate2</h3>
                                 }
                                 else
                                 {
-                                    <h3>@sheriffCandidateTwoName</h3>
+                                    <h3>@race2Candidate2</h3>
                                 }
                             </div>
                         </div>
@@ -148,15 +188,24 @@
                     <div class="container">
                         <div class="text-center">
                             <h3>You selected <b>@issueVote</b></h3>
+                            @if (electionEnded && issueYesVotes == issueNoVotes)
+                            {
+                                <h3><b>It's a tie!</b></h3>
+                            }
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @issueYesVotes > @issueNoVotes)
+                                @if (electionEnded && issueYesVotes > issueNoVotes)
                                 {
                                     <h3><b>@issueYesVotes</b></h3>
                                     <h3><b>Yes</b></h3>
                                 }
-                                else if (electionEnded && @issueYesVotes < @issueNoVotes)
+                                else if (electionEnded && issueYesVotes < issueNoVotes)
+                                {
+                                    <h3>@issueYesVotes</h3>
+                                    <h3>Yes</h3>
+                                }
+                                else if (electionEnded && issueYesVotes == issueNoVotes)
                                 {
                                     <h3>@issueYesVotes</h3>
                                     <h3>Yes</h3>
@@ -167,12 +216,17 @@
                                 }
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @issueYesVotes < @issueNoVotes)
+                                @if (electionEnded && issueYesVotes < issueNoVotes)
                                 {
                                     <h3><b>@issueNoVotes</b></h3>
                                     <h3><b>No</b></h3>
                                 }
-                                else if (electionEnded && @issueYesVotes > @issueNoVotes)
+                                else if (electionEnded && issueYesVotes > issueNoVotes)
+                                {
+                                    <h3>@issueNoVotes</h3>
+                                    <h3>No</h3>
+                                }
+                                else if (electionEnded && issueYesVotes == issueNoVotes)
                                 {
                                     <h3>@issueNoVotes</h3>
                                     <h3>No</h3>
@@ -194,83 +248,115 @@
         <div class="general-container">
             <div class="text-center">
                 <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
-                <h1 class="display-4">2021 Pacopolis <br /> Election Ballot</h1>
+                <h1 class="display-4">@electionNameTokenized[0] @electionNameTokenized[1] <br /> @electionNameTokenized[2] Ballot</h1>
                 <br />
                 <header class="w3-container">
-                    <h2><b>Mayoral Race</b></h2>
+                    <h2><b>@race1</b></h2>
                 </header>
                 <form action="/VoteSubmitted" id="ballot" method="get">
                     <div class="container">
+                        <div class="text-center">
+                            @if (electionEnded && race1Candidate1Votes == race1Candidate2Votes)
+                            {
+                                <h3><b>It's a tie!</b></h3>
+                            }
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @mayoralCandidateOneVotes > @mayoralCandidateTwoVotes)
+                                @if (electionEnded && race1Candidate1Votes > race1Candidate2Votes)
                                 {
-                                    <h3><b>@mayoralCandidateOneVotes</b></h3>
-                                    <h3><b>@mayoralCandidateOneName Won!</b></h3>
+                                    <h3><b>@race1Candidate1Votes</b></h3>
+                                    <h3><b>@race1Candidate1 Won!</b></h3>
                                 }
-                                else if (electionEnded && @mayoralCandidateOneVotes < @mayoralCandidateTwoVotes)
+                                else if (electionEnded && race1Candidate1Votes < race1Candidate2Votes)
                                 {
-                                    <h3>@mayoralCandidateOneVotes</h3>
-                                    <h3>@mayoralCandidateOneName</h3>
+                                    <h3>@race1Candidate1Votes</h3>
+                                    <h3>@race1Candidate1</h3>
+                                }
+                                else if (electionEnded && race1Candidate1Votes == race1Candidate2Votes)
+                                {
+                                    <h3>@race1Candidate1Votes</h3>
+                                    <h3>@race1Candidate1</h3>
                                 }
                                 else
                                 {
-                                    <h3>@mayoralCandidateOneName</h3>
+                                    <h3>@race1Candidate1</h3>
                                 }
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @mayoralCandidateOneVotes < @mayoralCandidateTwoVotes)
+                                @if (electionEnded && race1Candidate1Votes < race1Candidate2Votes)
                                 {
-                                    <h3><b>@mayoralCandidateTwoVotes</b></h3>
-                                    <h3><b>@mayoralCandidateTwoName Won!</b></h3>
+                                    <h3><b>@race1Candidate2</b></h3>
+                                    <h3><b>@race1Candidate2 Won!</b></h3>
                                 }
-                                else if (electionEnded && @mayoralCandidateOneVotes > @mayoralCandidateTwoVotes)
+                                else if (electionEnded && race1Candidate1Votes > race1Candidate2Votes)
                                 {
-                                    <h3>@mayoralCandidateTwoVotes</h3>
-                                    <h3>@mayoralCandidateTwoName</h3>
+                                    <h3>@race1Candidate2Votes</h3>
+                                    <h3>@race1Candidate2</h3>
+                                }
+                                else if (electionEnded && race1Candidate1Votes == race1Candidate2Votes)
+                                {
+                                    <h3>@race1Candidate2Votes</h3>
+                                    <h3>@race1Candidate2</h3>
                                 }
                                 else
                                 {
-                                    <h3>@mayoralCandidateTwoName</h3>
+                                    <h3>@race1Candidate2</h3>
                                 }
                             </div>
                         </div>
                     </div>
                     <header class="w3-container">
-                        <h2><b>Sheriff Election</b></h2>
+                        <h2><b>@race2</b></h2>
                     </header>
                     <div class="container">
+                        <div class="text-center">
+                            @if (electionEnded && race2Candidate1Votes == race2Candidate2Votes)
+                            {
+                                <h3><b>It's a tie!</b></h3>
+                            }
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @sheriffCandidateOneVotes > @sheriffCandidateTwoVotes)
+                                @if (electionEnded && race2Candidate1Votes > race2Candidate2Votes)
                                 {
-                                    <h3><b>@sheriffCandidateOneVotes</b></h3>
-                                    <h3><b>@sheriffCandidateOneName Won!</b></h3>
+                                    <h3><b>@race2Candidate1Votes</b></h3>
+                                    <h3><b>@race2Candidate1 Won!</b></h3>
                                 }
-                                else if (electionEnded && @sheriffCandidateOneVotes < @sheriffCandidateTwoVotes)
+                                else if (electionEnded && race2Candidate1Votes < race2Candidate2Votes)
                                 {
-                                    <h3>@sheriffCandidateOneVotes</h3>
-                                    <h3>@sheriffCandidateOneName</h3>
+                                    <h3>@race2Candidate1Votes</h3>
+                                    <h3>@race2Candidate1</h3>
+                                }
+                                else if (electionEnded && race2Candidate1Votes == race2Candidate2Votes)
+                                {
+                                    <h3>@race2Candidate1Votes</h3>
+                                    <h3>@race2Candidate1</h3>
                                 }
                                 else
                                 {
-                                    <h3>@sheriffCandidateOneName</h3>
+                                    <h3>@race2Candidate1</h3>
                                 }
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @sheriffCandidateOneVotes < @sheriffCandidateTwoVotes)
+                                @if (electionEnded && race2Candidate1Votes < race2Candidate2Votes)
                                 {
-                                    <h3><b>@sheriffCandidateTwoVotes</b></h3>
-                                    <h3><b>@sheriffCandidateTwoName Won!</b></h3>
+                                    <h3><b>@race2Candidate2Votes</b></h3>
+                                    <h3><b>@race2Candidate2 Won!</b></h3>
                                 }
-                                else if (electionEnded && @sheriffCandidateOneVotes > @sheriffCandidateTwoVotes)
+                                else if (electionEnded && race2Candidate1Votes > race2Candidate2Votes)
                                 {
-                                    <h3>@sheriffCandidateTwoVotes</h3>
-                                    <h3>@sheriffCandidateTwoName</h3>
+                                    <h3>@race2Candidate2Votes</h3>
+                                    <h3>@race2Candidate2</h3>
+                                }
+                                else if (electionEnded && race2Candidate1Votes == race2Candidate2Votes)
+                                {
+                                    <h3>@race2Candidate2Votes</h3>
+                                    <h3>@race2Candidate2</h3>
                                 }
                                 else
                                 {
-                                    <h3>@sheriffCandidateTwoName</h3>
+                                    <h3>@race2Candidate2</h3>
                                 }
                             </div>
                         </div>
@@ -284,14 +370,25 @@
                         </p>
                     </div>
                     <div class="container">
+                        <div class="text-center">
+                            @if (electionEnded && issueYesVotes == issueNoVotes)
+                            {
+                                <h3><b>It's a tie!<b/></h3>
+                            }
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @issueYesVotes > @issueNoVotes)
+                                @if (electionEnded && issueYesVotes > issueNoVotes)
                                 {
                                     <h3><b>@issueYesVotes</b></h3>
                                     <h3><b>Yes</b></h3>
                                 }
-                                else if (electionEnded && @issueYesVotes < @issueNoVotes)
+                                else if (electionEnded && issueYesVotes < issueNoVotes)
+                                {
+                                    <h3>@issueYesVotes</h3>
+                                    <h3>Yes</h3>
+                                }
+                                else if (electionEnded && issueYesVotes == issueNoVotes)
                                 {
                                     <h3>@issueYesVotes</h3>
                                     <h3>Yes</h3>
@@ -302,12 +399,17 @@
                                 }
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                @if (electionEnded && @issueYesVotes < @issueNoVotes)
+                                @if (electionEnded && issueYesVotes < issueNoVotes)
                                 {
                                     <h3><b>@issueNoVotes</b></h3>
                                     <h3><b>No</b></h3>
                                 }
-                                else if (electionEnded && @issueYesVotes > @issueNoVotes)
+                                else if (electionEnded && issueYesVotes > issueNoVotes)
+                                {
+                                    <h3>@issueNoVotes</h3>
+                                    <h3>No</h3>
+                                }
+                                else if (electionEnded && issueYesVotes == issueNoVotes)
                                 {
                                     <h3>@issueNoVotes</h3>
                                     <h3>No</h3>
@@ -329,36 +431,36 @@
         <div class="general-container">
             <div class="text-center">
                 <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
-                <h1 class="display-4">2021 Pacopolis <br /> Election Ballot</h1>
+                <h1 class="display-4">@electionNameTokenized[0] @electionNameTokenized[1] <br /> @electionNameTokenized[2] Ballot</h1>
                 <br />
                 <header class="w3-container">
-                    <h2><b>Mayoral Race</b></h2>
+                    <h2><b>@race1</b></h2>
                 </header>
                 <form method="post">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input asp-for="mayoralVote" type="radio" id="mayoralCandidateOne" value="@mayoralCandidateOneName" required>
-                                <h3>@mayoralCandidateOneName</h3>
+                                <input asp-for="race1Vote" type="radio" id="mayoralCandidateOne" value="@race1Candidate1" required>
+                                <h3>@race1Candidate1</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input asp-for="mayoralVote" type="radio" id="mayoralCandidateTwo" value="@mayoralCandidateTwoName" required>
-                                <h3>@mayoralCandidateTwoName</h3>
+                                <input asp-for="race1Vote" type="radio" id="mayoralCandidateTwo" value="@race1Candidate2" required>
+                                <h3>@race1Candidate2</h3>
                             </div>
                         </div>
                     </div>
                     <header class="w3-container">
-                        <h2><b>Sheriff Election</b></h2>
+                        <h2><b>@race2</b></h2>
                     </header>
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" asp-for="sheriffVote" id="sheriffCandidateOne" value="@sheriffCandidateOneName" required>
-                                <h3>@sheriffCandidateOneName</h3>
+                                <input type="radio" asp-for="race2Vote" id="sheriffCandidateOne" value="@race2Candidate1" required>
+                                <h3>@race2Candidate1</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" asp-for="sheriffVote" id="sheriffCandidateTwo" value="@sheriffCandidateTwoName" required>
-                                <h3>@sheriffCandidateTwoName</h3>
+                                <input type="radio" asp-for="race2Vote" id="sheriffCandidateTwo" value="@race2Candidate2" required>
+                                <h3>@race2Candidate2</h3>
                             </div>
                         </div>
                     </div>

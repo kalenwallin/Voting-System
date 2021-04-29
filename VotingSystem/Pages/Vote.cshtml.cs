@@ -12,14 +12,14 @@ namespace VotingSystem.Pages
 {
     public class VoteModel : PageModel
     {
-        [BindProperty] public string mayoralVote { get; set; }
-        [BindProperty] public string sheriffVote { get; set; }
+        [BindProperty] public string race1Vote { get; set; }
+        [BindProperty] public string race2Vote { get; set; }
         [BindProperty] public string issueVote { get; set; }
         public Election election;
 
         public void OnGet(int electionId)
         {
-            election = ElectionsController.GetElection(1);
+            election = ElectionsController.GetElection(electionId);
         }
 
         public IActionResult OnPostAsync()
