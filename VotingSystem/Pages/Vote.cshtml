@@ -14,18 +14,30 @@
     string race2 = election.CandidateDecisions[1].DecisionName;
     string race2Candidate1 = election.CandidateDecisions[1].Candidate1.Name;
     string race2Candidate2 = election.CandidateDecisions[1].Candidate2.Name;
-    // string mayoralCandidateOneName = "Pat Mann";
-    // string mayoralCandidateTwoName = "Dawn Keykong";
-    // string sheriffCandidateOneName = "John Doe";
-    // string sheriffCandidateTwoName = "Mary Jane";
     string issueName = election.IssueDecisions[0].Name;
     string issueDesc = election.IssueDecisions[0].Description;
 
     //user's votes
+    Ballot ballot = Model.ballot;
     bool userVoted = false;
-    string race1Vote = "todo: user vote";
-    string race2Vote = "todo: user vote";
-    string issueVote = "todo: user vote";
+    string race1Vote = "user has not voted";
+    string race2Vote = "user has not voted";
+    bool issueVoteBool = false;
+    string issueVote = "user has not voted";
+    if (ballot != null)
+    {
+        userVoted = true;
+        race1Vote = ballot.Candidate1.Name;
+        race2Vote = ballot.Candidate2.Name;
+        issueVoteBool = ballot.VotedYes;
+    }
+    if(issueVoteBool)
+    {
+        issueVote = "Yes";
+    } else
+    {
+        issueVote = "No";
+    }
 
     //election results
     int race1Candidate1Votes = election.CandidateDecisions[0].Candidate1.Votes;
@@ -36,7 +48,7 @@
     int issueNoVotes = election.IssueDecisions[0].VotesAgainst;
 
     //check if election has ended
-    bool electionEnded = true;
+    bool electionEnded = false;
     DateTime electionDate = election.Date;
 
     //if electionDate is earlier than now, then the election has ended
@@ -373,7 +385,7 @@
                         <div class="text-center">
                             @if (electionEnded && issueYesVotes == issueNoVotes)
                             {
-                                <h3><b>It's a tie!<b/></h3>
+                                <h3><b>It's a tie!</b></h3>
                             }
                         </div>
                         <div class="row">
@@ -475,11 +487,11 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" asp-for="issueVote" id="yes" value="yes" required>
+                                <input type="radio" asp-for="issueVote" id="yes" value="true" required>
                                 <h3>Yes</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <input type="radio" asp-for="issueVote" id="no" value="no" required>
+                                <input type="radio" asp-for="issueVote" id="no" value="false" required>
                                 <h3>No</h3>
                             </div>
                         </div>

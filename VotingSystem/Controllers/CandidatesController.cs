@@ -58,8 +58,16 @@ namespace VotingSystem.Controllers
         }
 
         // Returns the candidate with the given candidateId, if they exist
-        public static Candidate GetCandidate(int candidateId) {
+        public static Candidate GetCandidate(int candidateId)
+        {
             CandidateModels candidateModel = _context.Candidates.FirstOrDefault(m => m.CandidateID == candidateId);
+
+            return new Candidate(candidateModel.CandidateID, candidateModel.Name, candidateModel.Race, candidateModel.Votes);
+        }
+
+        // Returns the candidate with the given name, if they exist
+        public static Candidate GetCandidateByName(string candidateName) {
+            CandidateModels candidateModel = _context.Candidates.FirstOrDefault(m => m.Name == candidateName);
 
             return new Candidate(candidateModel.CandidateID, candidateModel.Name, candidateModel.Race, candidateModel.Votes);
         }

@@ -107,6 +107,24 @@ namespace VotingSystem.Controllers
             _context.SaveChanges();
         }
 
+        // Creates a new ballot after a user votes
+        public static void Create(int userId, int electionId, string race1Vote, string race2Vote, bool issueVote)
+        {
+            BallotModels newBallot = new BallotModels();
+            List<IssueDecision> issues = IssuesController.GetIssuesInElection(electionId);
+            Election election = ElectionsController.GetElection(electionId);
+
+            newBallot.UserID = userId;
+            newBallot.ElectionID = electionId;
+            newBallot.CandidateOneID = CandidatesController.GetCandidateByName(race1Vote).CandidateId;
+            newBallot.CandidateTwoID = CandidatesController.GetCandidateByName(race2Vote).CandidateId;
+            newBallot.IssueID = issues[0].IssueId;
+            newBallot.VotedForIssue = issueVote;
+
+            _context.Add(newBallot);
+            _context.SaveChanges();
+        }
+
         // Deletes the ballot with the given id, if it exists
         public static void Delete(int ballotId) {
             BallotModels ballot = _context.Ballots.FirstOrDefault(b => b.BallotID == ballotId);

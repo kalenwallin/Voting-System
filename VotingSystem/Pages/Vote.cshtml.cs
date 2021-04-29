@@ -14,16 +14,20 @@ namespace VotingSystem.Pages
     {
         [BindProperty] public string race1Vote { get; set; }
         [BindProperty] public string race2Vote { get; set; }
-        [BindProperty] public string issueVote { get; set; }
+        [BindProperty] public bool issueVote { get; set; }
         public Election election;
+        public Ballot ballot;
 
         public void OnGet(int electionId)
         {
             election = ElectionsController.GetElection(electionId);
+            ballot = BallotController.GetUserBallotFromElection(signedIn.Email, electionId);
         }
 
         public IActionResult OnPostAsync()
         {
+            User u = UsersController.GetUserByEmail(signedIn.Email);
+            BallotController.Create(u.UserId, 1, race1Vote, race2Vote, issueVote);
 
 
             return RedirectToPage("VoteSubmitted");

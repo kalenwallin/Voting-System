@@ -58,6 +58,7 @@ namespace VotingSystem.Pages.Shared
                 return Page();
             }
             signedIn.isSignedIn = true;
+            signedIn.Email = Email;
             return RedirectToPage("Elections");
         }
     }
