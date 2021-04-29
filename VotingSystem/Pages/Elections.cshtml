@@ -3,10 +3,12 @@
 @using VotingSystem.Classes;
 @{
     ViewData["Title"] = "Elections";
-    string electionOneName = "2021 Pacopolis Election";
-    string electionOneEndDate = "5/1/21";
-    string electionTwoName = "Some Future Election";
-    string electionTwoEndDate = "5/8/22";
+    string electionOneName = Model.electionList[0].ElectionName;
+    string electionOneEndDate = Model.electionList[0].Date.ToShortDateString();
+    int electionOneId = Model.electionList[0].ElectionId;
+    string electionTwoName = Model.electionList[1].ElectionName;
+    string electionTwoEndDate = Model.electionList[1].Date.ToShortDateString();
+    int electionTwoId = Model.electionList[1].ElectionId;
     bool SignedIn = signedIn.isSignedIn;
 }
 
@@ -22,7 +24,7 @@
             <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
             <h1 class="display-4">Elections</h1>
             <br />
-            <a href="/Vote">
+            <a asp-page="/Vote" asp-route-electionId="@electionOneId">
                 <div class="w3-election-card-container">
                     <div class="w3-election-card w3-white">
                         <header class="w3-container">

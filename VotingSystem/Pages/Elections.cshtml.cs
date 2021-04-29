@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using VotingSystem.Pages.Shared;
+using VotingSystem.Controllers;
+using VotingSystem.Classes;
 
 namespace VotingSystem.Pages
 {
     public class ElectionsModel : PageModel
     {
         private readonly ILogger<ElectionsModel> _logger;
+        public List<Election> electionList;
         public ElectionsModel(ILogger<ElectionsModel> logger)
         {
             _logger = logger;
@@ -20,7 +23,7 @@ namespace VotingSystem.Pages
 
         public void OnGet()
         {
-
+            electionList = ElectionsController.GetAllElections(1);
         }
     }
 }

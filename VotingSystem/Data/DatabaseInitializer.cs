@@ -33,8 +33,8 @@ namespace VotingSystem.Data
 
             var elections = new ElectionModels[]
             {
-                new ElectionModels{Date=new DateTime(2021, 11, 6), Name="2021 Pacopolis Election"},
-                new ElectionModels{Date=new DateTime(2022, 11, 6), Name="Some Future Election"}
+                new ElectionModels{Date=new DateTime(2022, 11, 6), Name="Some Future Election"},
+                new ElectionModels{Date=new DateTime(2021, 11, 6), Name="2021 Pacopolis Election"}
             };
 
             foreach (ElectionModels e in elections)

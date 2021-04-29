@@ -8,14 +8,11 @@
     string mayoralCandidateTwoName = "Dawn Keykong";
     string sheriffCandidateOneName = "John Doe";
     string sheriffCandidateTwoName = "Mary Jane";
-    string issueName = "City Park";
-    string issueDesc = @"The Pacopolis Department of Recreation passed a bill, on January 21, 2021,
-to build a park on the corner of 1st street. The park will enter development
-if they receive a majoral vote in this election.
-If you are in favor of the city park, select yes. If not, select no.";
+    string issueName = Model.election.IssueDecisions[0].Name;
+    string issueDesc = Model.election.IssueDecisions[0].Description;
 
     //dummy variables for user while db isn't implemented
-    bool userVoted = false;
+            bool userVoted = false;
     string mayoralVote = mayoralCandidateOneName;
     string sheriffVote = sheriffCandidateOneName;
     string issueVote = "Yes";
@@ -25,8 +22,8 @@ If you are in favor of the city park, select yes. If not, select no.";
     int mayoralCandidateTwoVotes = 15;
     int sheriffCandidateOneVotes = 10;
     int sheriffCandidateTwoVotes = 15;
-    int issueYesVotes = 15;
-    int issueNoVotes = 10;
+    int issueYesVotes = Model.election.IssueDecisions[0].VotesFor;
+    int issueNoVotes = Model.election.IssueDecisions[0].VotesAgainst;
     bool electionEnded = false;
     DateTime electionDate = new DateTime(2021, 5, 1);
 

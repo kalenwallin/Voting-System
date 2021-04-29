@@ -21,7 +21,7 @@
         <br />
         @foreach (Classes.User u in userListClasses)
         {
-            @if (u.HasVoted)
+            @if (UsersController.HasUserVoted(u.Email, 1))
             {
                 <div class="w3-election-card-container">
                     <div class="w3-election-card" style="background-color: #4CAF50; color: white;">
