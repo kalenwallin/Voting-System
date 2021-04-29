@@ -78,13 +78,13 @@ namespace VotingSystem.Controllers
                 return false;
             }
 
-            IssueModels newIssue = new IssueModels(oldIssue.ElectionID, issue.Name, issue.Description);
-            newIssue.IssueID = issueId;
-            newIssue.VotesFor = issue.VotesFor;
-            newIssue.VotesAgainst = issue.VotesAgainst;
+            oldIssue.Title = issue.Name;
+            oldIssue.Description = issue.Description;
+            oldIssue.VotesFor = issue.VotesFor;
+            oldIssue.VotesAgainst = issue.VotesAgainst;
 
             try {
-                _context.Update(newIssue);
+                _context.Update(oldIssue);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e) {

@@ -114,11 +114,12 @@ namespace VotingSystem.Controllers
                 return false;
             }
 
-            CandidateModels newCandidate = new CandidateModels(candidate.Name, candidate.Race, candidate.Votes, oldCandidate.ElectionID);
-            newCandidate.CandidateID = candidateId;
+            oldCandidate.Name = candidate.Name;
+            oldCandidate.Race = candidate.Race;
+            oldCandidate.Votes = candidate.Votes;
 
             try {
-                _context.Update(newCandidate);
+                _context.Update(oldCandidate);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)

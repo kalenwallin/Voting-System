@@ -89,11 +89,20 @@ namespace VotingSystem.Controllers
                 return false;
             }
 
-            Models.UserModels newUser = new Models.UserModels(user.Email, user.Password, user.Name);
-            newUser.UserID = user.UserId;
+            Models.UserModels oldUser = _context.Users.FirstOrDefault(u => u.UserID == id);
+
+            // Cancel the edit if the user did not previously exist
+            if (oldUser == null)
+            {
+                return false;
+            }
+
+            oldUser.Email = user.Email;
+            oldUser.Password = user.Password;
+            oldUser.Name = user.Name;
 
             try {
-                _context.Update(newUser);
+                _context.Update(oldUser);
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e) {
