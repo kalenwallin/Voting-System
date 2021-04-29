@@ -116,9 +116,17 @@ namespace VotingSystem.Controllers
 
             newBallot.UserID = userId;
             newBallot.ElectionID = electionId;
-            newBallot.CandidateOneID = CandidatesController.GetCandidateByName(race1Vote).CandidateId;
-            newBallot.CandidateTwoID = CandidatesController.GetCandidateByName(race2Vote).CandidateId;
+
+            Candidate CandidateOne = CandidatesController.GetCandidateByName(race1Vote);
+            CandidatesController.voteInc(CandidateOne.CandidateId);
+            newBallot.CandidateOneID = CandidateOne.CandidateId;
+
+            Candidate CandidateTwo = CandidatesController.GetCandidateByName(race2Vote);
+            CandidatesController.voteInc(CandidateTwo.CandidateId);
+            newBallot.CandidateTwoID = CandidateTwo.CandidateId;
+
             newBallot.IssueID = issues[0].IssueId;
+            IssuesController.voteInc(issues[0], issueVote);
             newBallot.VotedForIssue = issueVote;
 
             _context.Add(newBallot);

@@ -24,7 +24,7 @@ namespace VotingSystem.Pages
             ballot = BallotController.GetUserBallotFromElection(signedIn.Email, electionId);
         }
 
-        public IActionResult OnPostAsync()
+        public IActionResult OnPost()
         {
             User u = UsersController.GetUserByEmail(signedIn.Email);
             BallotController.Create(u.UserId, 1, race1Vote, race2Vote, issueVote);

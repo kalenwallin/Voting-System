@@ -46,6 +46,22 @@ namespace VotingSystem.Controllers
             _context.SaveChanges();
         }
 
+        // Increments an issue's vote count by one given a user's vote
+        public static void voteInc(IssueDecision issue, bool userVote)
+        {
+            int votesFor = issue.VotesFor;
+            int votesAgainst = issue.VotesAgainst;
+            if (userVote)
+            {
+                votesFor++;
+            } else
+            {
+                votesAgainst++;
+            }
+            IssueDecision newI = new IssueDecision(issue.IssueId, issue.Name, issue.Description, votesFor, votesAgainst);
+            Edit(issue.IssueId, newI);
+        }
+
         // Edits an existing Issue by replacing it with the new given issue
         // Returns true if the changes were successfully made
         public static bool Edit(int issueId, IssueDecision issue) {

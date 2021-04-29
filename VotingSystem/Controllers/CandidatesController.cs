@@ -88,6 +88,16 @@ namespace VotingSystem.Controllers
             _context.SaveChanges();
         }
 
+        // Increments a candidates vote count by one
+        public static void voteInc(int candidateId)
+        {
+            Candidate c = GetCandidate(candidateId);
+            int votes = c.Votes;
+            votes++;
+            Candidate newC = new Candidate(candidateId, c.Name, c.Race, votes);
+            Edit(candidateId, newC);
+        }
+
         // Edits an existing candidate by replacing it with the new given candidate
         // Returns true if the changes were successfully made
         public static bool Edit(int candidateId, Candidate candidate) {
