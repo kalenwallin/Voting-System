@@ -24,9 +24,15 @@ The Voting System is a web appplication created by a group of software engineeri
 2. Open the solution file
 3. Press the play button at the top of the IDE (IIS Express/Voting System)
 4. Create an account/log in
-5. Select an arbitrary election.
+5. Select an election.
 6. Vote
-7. Repeat (for any additional elections).
+7. Press continue and select the same election to view your race selections.
+8. Sign out when finished.
+
+## Public Voter List Instructions
+1. Click on Public Voter List in the Navigation bar. (No account required)
+2. View whether a voter has voted on the ongoing election.
+(Green if a user has voted/Red if a user hasn't voted)
 
 ## Development Tools
 - Visual Studio, .NET Framework, ASP.NET Core 3.1, Razor Pages
@@ -43,7 +49,7 @@ The Voting System is a web appplication created by a group of software engineeri
   - There are additional controllers to separate concerns of each class (User, Election, Ballot, Issue).
 
 ## Testing
-- Unit Tests for Elections, Issues, and Users controllers.
+- Unit Tests for Elections, Issues, Candidates, Users, and Ballot controllers.
 
 ## Contributing
 This is a private repository with respect to the University of Nebraska-Lincoln's Academic Integrity Policy. There shall be no contributions from anyone outside of our private group.
