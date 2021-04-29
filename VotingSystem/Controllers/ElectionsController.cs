@@ -55,6 +55,7 @@ namespace VotingSystem.Controllers
             }
 
             election.CandidateDecisions = cDecisions;
+            election.IssueDecisions = iDecisions;
 
             return election;
         }
