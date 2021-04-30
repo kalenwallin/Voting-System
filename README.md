@@ -51,6 +51,7 @@ The Voting System is a web appplication created by a group of software engineeri
 
 ## Testing
 - MSTest Unit Tests for Elections, Issues, Candidates, Users, and Ballot controllers.
+- Visual Studio Test Runner to run and display test results.
 
 ## Contributing
 This is a private repository with respect to the University of Nebraska-Lincoln's Academic Integrity Policy. There shall be no contributions from anyone outside of our private group.
