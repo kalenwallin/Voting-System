@@ -103,7 +103,7 @@ namespace VotingSystem.Controllers
             newBallot.IssueID = issues[0].IssueId;
             newBallot.VotedForIssue = ballot.VotedYes;
 
-            _context.Add(ballot);
+            _context.Add(newBallot);
             _context.SaveChanges();
         }
 
