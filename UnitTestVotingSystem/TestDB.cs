@@ -101,7 +101,6 @@ namespace UnitTestVotingSystem
                 context.SaveChanges();
             }
         }
-
         public void Can_get_all_users()
         {
             using (var context = new VotingSystemContext(ContextOptions))
