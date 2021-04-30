@@ -58,10 +58,10 @@ namespace UnitTestVotingSystem
             CandidatesController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
                 .Options));
-
+            var candBefore = CandidatesController.GetCandidate(1);
             CandidatesController.voteInc(1);
-            var cand = CandidatesController.GetCandidate(1);
-            Assert.AreEqual(1,cand.Votes);
+            var candAfter = CandidatesController.GetCandidate(1);
+            Assert.AreNotEqual(candBefore.Votes, candAfter.Votes);
         }
 
         [TestMethod]
