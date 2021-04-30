@@ -52,7 +52,7 @@
     // Note to Grader: Change the "electionEnded" bool to true to see the election results.
     // It is set to true when the election is over, but chances are you won't want to wait until the
     // set date just to see the results.
-    bool electionEnded = false;
+    bool electionEnded = true;
     DateTime electionDate = election.Date;
 
     //if electionDate is earlier than now, then the election has ended
@@ -174,7 +174,7 @@
                                 @if (electionEnded && race2Candidate1Votes < race2Candidate2Votes)
                                 {
                                     <h3><b>@race2Candidate2Votes</b></h3>
-                                    <h3><b>@race2Candidate2Votes Won!</b></h3>
+                                    <h3><b>@race2Candidate2 Won!</b></h3>
                                 }
                                 else if (electionEnded && race2Candidate1Votes > race2Candidate2Votes)
                                 {

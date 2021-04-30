@@ -62,9 +62,9 @@ namespace VotingSystem.Data
 
             var candidates = new CandidateModels[]
             {
-                new CandidateModels{Name="Pat Mann",Race="Mayoral Race",Votes=0,ElectionID=0001},
+                new CandidateModels{Name="Pat Mann",Race="Mayoral Race",Votes=1,ElectionID=0001},
                 new CandidateModels{Name="Dawn KeyKong",Race="Mayoral Race",Votes=0,ElectionID=0001},
-                new CandidateModels{Name="John Doe",Race="Sheriff Election",Votes=0,ElectionID=0001},
+                new CandidateModels{Name="John Doe",Race="Sheriff Election",Votes=1,ElectionID=0001},
                 new CandidateModels{Name="Mary Jane",Race="Sheriff Election",Votes=0,ElectionID=0001}
             };
 
