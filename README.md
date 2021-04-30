@@ -38,6 +38,7 @@ The Voting System is a web appplication created by a group of software engineeri
 - Visual Studio, .NET Framework, ASP.NET Core 3.1, Razor Pages
 - Languages: HTML, CSS, C#, and Javascript.
 - Operating System: Windows
+- Testing Framework: MSTest
 
 ## Database
 - Entity Framework Core
@@ -49,7 +50,8 @@ The Voting System is a web appplication created by a group of software engineeri
   - There are additional controllers to separate concerns of each class (User, Election, Ballot, Issue).
 
 ## Testing
-- Unit Tests for Elections, Issues, Candidates, Users, and Ballot controllers.
+- MSTest Unit Tests for Elections, Issues, Candidates, Users, and Ballot controllers.
+- Visual Studio Test Runner to run and display test results.
 
 ## Contributing
 This is a private repository with respect to the University of Nebraska-Lincoln's Academic Integrity Policy. There shall be no contributions from anyone outside of our private group.
