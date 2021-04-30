@@ -99,19 +99,6 @@ namespace VotingSystem.Controllers
             return true;
         }
 
-        // Deletes the issue corresponding to the given id, if it exists
-        public static void Delete(int issueId)
-        {
-            IssueModels issue = _context.Issues.FirstOrDefault(c => c.IssueID == issueId);
-
-            if (issue == null) {
-                return;
-            }
-
-            _context.Issues.Remove(issue);
-            _context.SaveChanges();
-        }
-
         public static bool IssueExists(int id) {
             return _context.Issues.Any(e => e.IssueID == id);
         }
