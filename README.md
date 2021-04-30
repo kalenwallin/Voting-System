@@ -1,6 +1,6 @@
 # CSCE 361 Capstone Project - Voting System
 <img align="right" src="https://i.imgur.com/qQfjxe2.png" width=45% height=45%>
-Author: Kalen Wallin
+Authors: Kalen Wallin, Thomas Walton
 
 Developers: Kalen Wallin, Jayden Carlon, Cameron Collingham, Thomas Walton, Joshua Bellmyer
 
