@@ -117,20 +117,6 @@ namespace VotingSystem.Controllers
             return true;
         }
 
-        // Deletes the user corresponding to the given id, if they exist
-        public static void Delete(int id)
-        {
-
-            Models.UserModels user = _context.Users.FirstOrDefault(m => m.UserID == id);
-
-            if (user == null) {
-                return;
-            }
-
-            _context.Users.Remove(user);
-            _context.SaveChanges();
-        }
-
         // Checks if the given user (by email) has voted in the given election
         public static bool HasUserVoted(string email, int electionId) {
             Models.UserModels user = _context.Users.FirstOrDefault(m => m.Email == email);

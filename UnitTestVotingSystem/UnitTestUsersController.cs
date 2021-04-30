@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NuGet.Frameworks;
 using VotingSystem.Controllers;
 using VotingSystem.Data;
 using UnitTestVotingSystem;
+using VotingSystem.Classes;
 using VotingSystem.Models;
 
 namespace UnitTestVotingSystem
@@ -26,7 +28,70 @@ namespace UnitTestVotingSystem
             Assert.AreEqual(2, users.Count);
         }
 
-        public void InitializeDb()
+        [TestMethod]
+        public void GetUser_ReturnsUser()
+        {
+            InitializeDb();
+            UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .Options));
+
+            var user = UsersController.GetUser(1);
+            var name = "Tom Walton";
+            Assert.AreEqual(name,user.Name);
+        }
+
+        [TestMethod]
+        public void GetUserByEmail_ReturnsUser()
+        {
+            InitializeDb();
+            UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .Options));
+
+            var user = UsersController.GetUserByEmail("twalton4@huskers.unl.edu");
+            var name = "Tom Walton";
+            Assert.AreEqual(name, user.Name);
+        }
+
+        [TestMethod]
+        public void GetUserByEmail_ReturnsNull_GivenNull()
+        {
+            InitializeDb();
+            UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .Options));
+            var user = UsersController.GetUserByEmail(null);
+            Assert.IsNull(user);
+        }
+
+        [TestMethod]
+        public void Create_Creates()
+        {
+            InitializeDb();
+            UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .Options));
+            UsersController.Create("Entity@gmail.com", "securepassword", "Entity");
+            var suspect = UsersController.GetUserByEmail("Entity@gmail.com");
+            Assert.IsNotNull(suspect);
+        }
+
+        [TestMethod]
+        public void Edit_Edits_GivenValid()
+        {
+            InitializeDb();
+            UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .Options));
+
+            UsersController.Create("Entity2@gmail.com", "securepassword2", "Entity2");
+            var oldUser = UsersController.GetUserByEmail("Entity2@gmail.com");
+            Assert.IsTrue(UsersController.Edit(oldUser.UserId, oldUser));
+        }
+
+
+            public void InitializeDb()
         {
             using (var context = new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                     .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
