@@ -53,6 +53,7 @@ namespace VotingSystem.Data
                 new IssueModels(0001, "City Park", "The Pacopolis Department of Recreation passed a bill, on January 21, 2021, to build a park on the corner of 1st street." +
                 " The park will enter development if they receive a majoral vote in this election. If you are in favor of the city park, select yes. If not, select no.")
             };
+            issues[0].VotesFor++;
 
             foreach(IssueModels i in issues)
             {
