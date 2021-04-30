@@ -44,6 +44,7 @@ The Voting System is a web appplication created by a group of software engineeri
 - Entity Framework Core
 - Uses LINQ to query data, prevent attacks
 - SQL Server/Local DB
+<img src="https://i.imgur.com/PjZQUe8.png" width=100% height=100%>
 
 ## Design
 - Model-View-Controller
