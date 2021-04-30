@@ -18,7 +18,6 @@ namespace UnitTestVotingSystem
         [TestMethod]
         public void Can_get_all_users()
         {
-            InitializeDb();
             UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                     .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
                     .Options));
@@ -31,20 +30,18 @@ namespace UnitTestVotingSystem
         [TestMethod]
         public void GetUser_ReturnsUser()
         {
-            InitializeDb();
             UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
                 .Options));
 
             var user = UsersController.GetUser(1);
             var name = "Tom Walton";
-            Assert.AreEqual(name,user.Name);
+            Assert.AreEqual(name, user.Name);
         }
 
         [TestMethod]
         public void GetUserByEmail_ReturnsUser()
         {
-            InitializeDb();
             UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
                 .Options));
@@ -57,7 +54,6 @@ namespace UnitTestVotingSystem
         [TestMethod]
         public void GetUserByEmail_ReturnsNull_GivenNull()
         {
-            InitializeDb();
             UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
                 .Options));
@@ -68,7 +64,6 @@ namespace UnitTestVotingSystem
         [TestMethod]
         public void Create_Creates()
         {
-            InitializeDb();
             UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
                 .Options));
@@ -80,7 +75,6 @@ namespace UnitTestVotingSystem
         [TestMethod]
         public void Edit_Edits_GivenValid()
         {
-            InitializeDb();
             UsersController.SetContext(new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
                 .Options));
@@ -91,7 +85,7 @@ namespace UnitTestVotingSystem
         }
 
 
-            public void InitializeDb()
+        public void InitializeDb()
         {
             using (var context = new VotingSystemContext(new DbContextOptionsBuilder<VotingSystemContext>()
                     .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=VotingSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true")
