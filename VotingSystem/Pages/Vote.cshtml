@@ -31,10 +31,11 @@
         race2Vote = ballot.Candidate2.Name;
         issueVoteBool = ballot.VotedYes;
     }
-    if(issueVoteBool)
+    if (issueVoteBool)
     {
         issueVote = "Yes";
-    } else
+    }
+    else
     {
         issueVote = "No";
     }
@@ -452,10 +453,11 @@
                 <img src="/Images/VotingSystemIconCutoff.png" alt="Voting System Logo" style="width:128px;height:128px;" />
                 <h1 class="display-4">@electionNameTokenized[0] @electionNameTokenized[1] <br /> @electionNameTokenized[2] Ballot</h1>
                 <br />
-                <header class="w3-container">
-                    <h2><b>@race1</b></h2>
-                </header>
                 <form method="post">
+                    <header class="w3-container">
+                        <h2><b>@race1</b></h2>
+                        <span asp-validation-for="race1Vote" class="text-danger"></span>
+                    </header>
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -470,6 +472,7 @@
                     </div>
                     <header class="w3-container">
                         <h2><b>@race2</b></h2>
+                        <span asp-validation-for="race2Vote" class="text-danger"></span>
                     </header>
                     <div class="container">
                         <div class="row">
@@ -490,6 +493,7 @@
                         <p>
                             @issueDesc
                         </p>
+                        <span asp-validation-for="issueVote" class="text-danger"></span>
                     </div>
                     <div class="container">
                         <div class="row">
@@ -527,4 +531,8 @@ else
             </form>
         </div>
     </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
